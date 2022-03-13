@@ -27,6 +27,24 @@ public class Student {
         kelas=new ArrayList<>();
     }
 
+
+    public void rewriteKelas(List<Class> a){
+
+        for(int i=0;i<kelas.size();i++){
+
+            for(int j=0;j<a.size();j++){
+
+                if(kelas.get(i).id==a.get(j).id){
+                    kelas.set(i,a.get(j));
+                    break;
+                }
+
+            }
+
+        }
+
+    }
+
     public void setKelasTerbaik(){
         kelasTerbaik=new ArrayList<>();
         for(int i=0;i<kelas.size();i++){

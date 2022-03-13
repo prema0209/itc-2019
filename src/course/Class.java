@@ -136,6 +136,18 @@ public class Class implements Cloneable {
 
     }
 
+
+    public void rewriteStudent(){
+        List<Integer> a=new ArrayList<>();
+
+        for(int i=0;i<student.size();i++){
+            a.add(student.get(i));
+        }
+
+        student=a;
+    }
+
+
     public Class(int id, int limit, int pa, Subpart x) {
         konflikJadwal = new ArrayList<>();
         statusParent = false;
