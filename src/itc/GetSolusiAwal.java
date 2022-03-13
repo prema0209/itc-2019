@@ -14,7 +14,9 @@ import java.io.File;
 import java.util.*;
 
 import static itc.GetInput.listStudent;
-import static itc.ITC.*;
+import static itc.ITC.path;
+import static itc.ITC.namafile;
+import static itc.ITC.sortedClass;
 
 
 public class GetSolusiAwal {
@@ -56,6 +58,8 @@ public class GetSolusiAwal {
                 for (int j = 0; j < sortedClass.size(); j++) {
 
                     if (sortedClass.get(j).getId() == id) {
+
+
 
                         int start = Integer.parseInt(t.getAttribute("start"));
                         String day = t.getAttribute("days");

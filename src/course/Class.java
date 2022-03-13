@@ -18,7 +18,22 @@ import java.util.Random;
 
 import static itc.GetInput.listClass;
 import static itc.GetInput.slot;
-import static itc.ITC.*;
+import static itc.ITC.timeRoomDihapus;
+import static itc.ITC.sortedClass;
+import static itc.ITC.myWriter;
+import static itc.ITC.konflik;
+import static itc.ITC.pt;
+import static itc.ITC.konflik2;
+import static itc.ITC.calculatePenalty;
+import static itc.ITC.rollbackPenalty;
+import static itc.ITC.Times2;
+import static itc.ITC.Rooms2;
+import static itc.ITC.ubahSolusi2;
+import static itc.ITC.hapus;
+import static itc.ITC.jadwal;
+import static itc.ITC.jadwalIndex;
+
+
 
 /**
  * @author prema
@@ -2287,69 +2302,6 @@ public class Class implements Cloneable {
 
             if (time.size() > 1 && (time.size() == waktuSama.size() + 1) && t3) {
 
-//            if(getId()==2268){
-//
-//            }
-                //          boolean test = false;
-//
-//
-//            for (int j = 0; j < sameAttendees.size(); j++) {
-//
-//
-//                List<Class> x = sameAttendees.get(j).kelas;
-//                List<Class> y=new ArrayList<>();
-//
-//                boolean t6 = false;
-//                //System.out.println(x.size()+" s "+time.size());
-//                if (x.size() > time.size()) {
-//                    boolean t5=true;
-//                    for (int k = 0; k < waktuSama.size(); k++) {
-//                        if (x.contains(waktuSama.get(k))) {
-//                            y.add(waktuSama.get(k));
-//                        }
-//
-//                    }
-//                    System.out.println(y.size()+" "+time.size()+" "+x.size());
-//                    if(y.size()+1==time.size()){
-//                        t6=true;
-//                    }
-//
-//
-//                }
-//
-//
-//            }
-//
-//
-//
-//            for (int j = 0; j < notOverlap.size(); j++) {
-//
-//
-//                List<Class> x = notOverlap.get(j).kelas;
-//
-//                List<Class> y=new ArrayList<>();
-//
-//                boolean t6 = false;
-//                // System.out.println(x.size()+" s "+time.size());
-//                if (x.size() > time.size()) {
-//                    boolean t5=true;
-//                    for (int k = 0; k < waktuSama.size(); k++) {
-//                        if (x.contains(waktuSama.get(k))) {
-//                            y.add(waktuSama.get(k));
-//                        }
-//
-//                    }
-//                    System.out.println(y.size()+" "+time.size());
-//                    if(y.size()+1==time.size()){
-//                        t6=true;
-//                    }
-//
-//
-//                }
-//
-//
-//            }
-//
 
 
                 for (int j = 0; j < sortedClass.size(); j++) {
@@ -5873,7 +5825,6 @@ public class Class implements Cloneable {
         return true;
     }
 
-
     public void isi(String week, String day, int start, int length, int room, int a, boolean b) {
         //boolean t = b;
         for (int j = 0; j < week.length(); j++) {
@@ -5896,6 +5847,44 @@ public class Class implements Cloneable {
 
                             } else {
                                 System.out.println(jadwal[(((j * 7) + k) * slot) + start - 1 + p][room - 1].get(0) + " " + jadwal[(((j * 7) + k) * slot) + start - 1 + p][room - 1].size() + " " + getIndex());
+                                System.out.println("EROR.................................................................................");
+                                System.exit(0);
+                            }
+
+
+                        }
+
+                    }
+
+                }
+            }
+
+        }
+
+
+    }
+    public void isi(String week, String day, int start, int length, int room, int a, boolean b, ArrayList<Integer> jad[][], ArrayList<Integer> ji[][]) {
+        //boolean t = b;
+        for (int j = 0; j < week.length(); j++) {
+
+            String test = week.substring(j, j + 1);
+
+            if (test.equals("1")) {
+                for (int k = 0; k < day.length(); k++) {
+
+                    String test2 = day.substring(k, k + 1);
+
+                    if (test2.equals("1")) {
+                        for (int p = 0; p < length; p++) {
+
+
+                            if (jad[(((j * 7) + k) * slot) + start - 1 + p][room - 1].size() == 0) {
+
+                                jad[(((j * 7) + k) * slot) + start - 1 + p][room - 1].add(getId());
+                                ji[(((j * 7) + k) * slot) + start - 1 + p][room - 1].add(getIndex());
+
+                            } else {
+                                System.out.println(jad[(((j * 7) + k) * slot) + start - 1 + p][room - 1].get(0) + " " + jad[(((j * 7) + k) * slot) + start - 1 + p][room - 1].size() + " " + getIndex());
                                 System.out.println("EROR.................................................................................");
                                 System.exit(0);
                             }
