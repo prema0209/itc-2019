@@ -18,9 +18,9 @@ import static itc.GetInput.*;
  *
  * @author prema
  */
-public class Course {
-    private int id;
-    List<Config> config;
+public class Course implements Cloneable{
+    public int id;
+    public List<Config> config;
     public List<Student>students;
     public List<Class>kelas;
     public int jumlahKelas;
@@ -36,12 +36,38 @@ public class Course {
 
     }
 
-    public void rollback(){
-//        config.get(swap).rollback();
+    public Object clone() throws
+            CloneNotSupportedException {
+        return super.clone();
+    }
 
-//        int c=aa;
-//        int aa=bb;
-//        int bb=c;
+    public void rewriteKelas(List<Class> k) throws CloneNotSupportedException {
+        List<Class> kNew=new ArrayList<>();
+
+        for(int i=0;i<k.size();i++){
+
+            kNew.add((Class) k.get(i).clone());
+
+        }
+
+        kelas=kNew;
+
+    }
+
+    public void rewriteStudent(Student[] s) throws CloneNotSupportedException {
+        List<Student> sNew=new ArrayList<>();
+
+        for(int i=0;i<s.length;i++){
+
+            sNew.add((Student) s[i].clone());
+
+        }
+
+        students=sNew;
+    }
+
+    public void rollback(){
+
 
         List<Class> x=new ArrayList<>();
         List<Class> y=new ArrayList<>();
@@ -108,7 +134,7 @@ public class Course {
             }
 
 
-            calculateStudentPenalty(2);
+            //calculateStudentPenalty(2);
 
 
             List<Class> x = new ArrayList<>();

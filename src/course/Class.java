@@ -24,15 +24,13 @@ import static itc.ITC.myWriter;
 import static itc.ITC.konflik;
 import static itc.ITC.pt;
 import static itc.ITC.konflik2;
-import static itc.ITC.calculatePenalty;
-import static itc.ITC.rollbackPenalty;
+
 import static itc.ITC.Times2;
 import static itc.ITC.Rooms2;
 import static itc.ITC.ubahSolusi2;
 import static itc.ITC.hapus;
 import static itc.ITC.jadwal;
 import static itc.ITC.jadwalIndex;
-
 
 
 /**
@@ -133,9 +131,9 @@ public class Class implements Cloneable {
 
     public boolean statusParent;
 
-    public void setStudentTerbaik(){
-        studentTerbaik=new ArrayList<>();
-        for(int i=0;i<student.size();i++){
+    public void setStudentTerbaik() {
+        studentTerbaik = new ArrayList<>();
+        for (int i = 0; i < student.size(); i++) {
             studentTerbaik.add(student.get(i));
         }
 
@@ -152,14 +150,14 @@ public class Class implements Cloneable {
     }
 
 
-    public void rewriteStudent(){
-        List<Integer> a=new ArrayList<>();
+    public void rewriteStudent() {
+        List<Integer> a = new ArrayList<>();
 
-        for(int i=0;i<student.size();i++){
+        for (int i = 0; i < student.size(); i++) {
             a.add(student.get(i));
         }
 
-        student=a;
+        student = a;
     }
 
 
@@ -1555,52 +1553,58 @@ public class Class implements Cloneable {
 
                 boolean t = false;
 
-                if(!sortedClass.get(i).roomKosong){
+                if (!sortedClass.get(i).roomKosong) {
 
-                if (room.size() == sortedClass.get(i).room.size() && sortedClass.get(i).getId() != this.getId()) {
-
-                    t=true;
-                    for (int j = 0; j < room.size(); j++) {
-
-                        if(room.get(j).getId()!=sortedClass.get(i).room.get(j).getId()){
-
-                            t=false;
-                            break;
-
-                        }
-                    }
-                }
-
-                if(t) {
-                    if (time.size() == sortedClass.get(i).time.size() && sortedClass.get(i).getId() != this.getId()) {
+                    if (room.size() == sortedClass.get(i).room.size() && sortedClass.get(i).getId() != this.getId()) {
 
                         t = true;
+                        for (int j = 0; j < room.size(); j++) {
 
-                        for (int j = 0; j < time.size(); j++) {
+                            if (room.get(j).getId() != sortedClass.get(i).room.get(j).getId()) {
+
+                                t = false;
+                                break;
+
+                            }
+                        }
+                    }
+
+                    if (t) {
+                        if (time.size() == sortedClass.get(i).time.size() && sortedClass.get(i).getId() != this.getId()) {
+
+                            t = true;
+
+                            for (int j = 0; j < time.size(); j++) {
 
 
-                            String week = time.get(j).getWeeks();
-                            String week2 = sortedClass.get(i).time.get(j).getWeeks();
+                                String week = time.get(j).getWeeks();
+                                String week2 = sortedClass.get(i).time.get(j).getWeeks();
 
-                            if (week.equals(week2)) {
-
-
-                                String day = time.get(j).getDays();
-                                String day2 = sortedClass.get(i).time.get(j).getDays();
+                                if (week.equals(week2)) {
 
 
-                                if (day.equals(day2)) {
+                                    String day = time.get(j).getDays();
+                                    String day2 = sortedClass.get(i).time.get(j).getDays();
 
 
-                                    int start = time.get(j).getStart();
-                                    int start2 = sortedClass.get(i).time.get(j).getStart();
-                                    int length = time.get(j).getLength();
-                                    int length2 = sortedClass.get(i).time.get(j).getLength();
+                                    if (day.equals(day2)) {
 
-                                    if (start != start2 || length != length2) {
+
+                                        int start = time.get(j).getStart();
+                                        int start2 = sortedClass.get(i).time.get(j).getStart();
+                                        int length = time.get(j).getLength();
+                                        int length2 = sortedClass.get(i).time.get(j).getLength();
+
+                                        if (start != start2 || length != length2) {
+                                            t = false;
+                                            break;
+                                        }
+
+                                    } else {
                                         t = false;
                                         break;
                                     }
+
 
                                 } else {
                                     t = false;
@@ -1608,21 +1612,15 @@ public class Class implements Cloneable {
                                 }
 
 
-                            } else {
-                                t = false;
-                                break;
                             }
+                            if (t) {
 
-
+                                waktuSama.add(sortedClass.get(i));
+                            }
                         }
-                        if (t) {
 
-                            waktuSama.add(sortedClass.get(i));
-                        }
+
                     }
-
-
-                }
                 }
             }
         }
@@ -2301,7 +2299,6 @@ public class Class implements Cloneable {
             }
 
             if (time.size() > 1 && (time.size() == waktuSama.size() + 1) && t3) {
-
 
 
                 for (int j = 0; j < sortedClass.size(); j++) {
@@ -3196,7 +3193,7 @@ public class Class implements Cloneable {
 
     public void addMaxDayLoad(Class a, boolean t) {
         if (t) {
-          //  System.out.println("masuk");
+            //  System.out.println("masuk");
             MaxDayLoad.get(MaxDayLoad.size() - 1).addClass(a);
         } else {
             MaxDayLoadSoft.get(MaxDayLoadSoft.size() - 1).addClass(a);
@@ -5196,7 +5193,7 @@ public class Class implements Cloneable {
             t = cekMaxDayLoad(week, d, length, a);
             if (!t) {
                 t2 = false;
-              //  System.out.println("gagal maxdayload");
+                //  System.out.println("gagal maxdayload");
             }
         }
 
@@ -5213,8 +5210,7 @@ public class Class implements Cloneable {
     }
 
     public boolean localSearch() {
-        // calculateStudentPenalty(4);
-        // System.out.println("masuk");
+
         Random rand = new Random();
         int T = getTimeDipakai();
         int R = getRoomDipakai();
@@ -5378,65 +5374,59 @@ public class Class implements Cloneable {
         int length = time.getLength();
 
 
+        int r2 = -1;
+        if (room1 >= 0) {
+            r2 = getRoom(room1).getId();
+        }
 
-            int r2 = -1;
-            if (room1 >= 0) {
-                r2 = getRoom(room1).getId();
-            }
+        PTimes t2 = getTime(time1);
 
-            PTimes t2 = getTime(time1);
-
-            String week2 = t2.getWeeks();
-            String day2 = t2.getDays();
-            int start2 = t2.getStart();
-            int length2 = t2.getLength();
-
-
-            setRoomDipakai(cariRoom(r));
-            setTimeDipakai(cariJadwal(week, day, start, length));
-
-            waktuSama.get(x).setTimeDipakai(waktuSama.get(x).cariJadwal(week2, day2, start2, length2));
-            waktuSama.get(x).setRoomDipakai(waktuSama.get(x).cariRoom(r2));
+        String week2 = t2.getWeeks();
+        String day2 = t2.getDays();
+        int start2 = t2.getStart();
+        int length2 = t2.getLength();
 
 
-            t = cekHardConstrain(week, day, start, length, r, 0);
+        setRoomDipakai(cariRoom(r));
+        setTimeDipakai(cariJadwal(week, day, start, length));
 
-            if(t) {
-                t = waktuSama.get(x).cekHardConstrain(week2, day2, start2, length2, r2, 0);
-            }
-
-            if (t) {
+        waktuSama.get(x).setTimeDipakai(waktuSama.get(x).cariJadwal(week2, day2, start2, length2));
+        waktuSama.get(x).setRoomDipakai(waktuSama.get(x).cariRoom(r2));
 
 
+        t = cekHardConstrain(week, day, start, length, r, 0);
+
+        if (t) {
+            t = waktuSama.get(x).cekHardConstrain(week2, day2, start2, length2, r2, 0);
+        }
+
+        if (t) {
 
 
-                boolean q=false;
-                for (int i = 0; i < sortedClass.size(); i++) {
+            boolean q = false;
+            for (int i = 0; i < sortedClass.size(); i++) {
 
-                    if (sortedClass.get(i).getId() == waktuSama.get(x).getId()) {
-                        q=true;
-                        ubahSolusi2 = i;
-                        break;
-
-                    }
+                if (sortedClass.get(i).getId() == waktuSama.get(x).getId()) {
+                    q = true;
+                    ubahSolusi2 = i;
+                    break;
 
                 }
 
-
-
-                return true;
-            } else {
-
-                setTimeDipakai(time1);
-                setRoomDipakai(room1);
-
-                waktuSama.get(x).setTimeDipakai(time2);
-                waktuSama.get(x).setRoomDipakai(room2);
-
-                return false;
             }
 
 
+            return true;
+        } else {
+
+            setTimeDipakai(time1);
+            setRoomDipakai(room1);
+
+            waktuSama.get(x).setTimeDipakai(time2);
+            waktuSama.get(x).setRoomDipakai(room2);
+
+            return false;
+        }
 
 
     }
@@ -5463,8 +5453,8 @@ public class Class implements Cloneable {
 
         Random rand = new Random();
 
-       // System.out.println(combinationTimeRoom.size()-hapusJadwal.size());
-        if (combinationTimeRoom.size()-hapusJadwal.size() == 1) {
+        // System.out.println(combinationTimeRoom.size()-hapusJadwal.size());
+        if (combinationTimeRoom.size() - hapusJadwal.size() == 1) {
 //            System.out.println("Cuma satu");
             return false;
         }
@@ -5863,6 +5853,7 @@ public class Class implements Cloneable {
 
 
     }
+
     public void isi(String week, String day, int start, int length, int room, int a, boolean b, ArrayList<Integer> jad[][], ArrayList<Integer> ji[][]) {
         //boolean t = b;
         for (int j = 0; j < week.length(); j++) {

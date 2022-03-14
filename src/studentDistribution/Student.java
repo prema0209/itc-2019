@@ -16,7 +16,7 @@ import static itc.ITC.sortedClass;
  * @author prema
  */
 
-public class Student {
+public class Student implements Cloneable{
     int id, index;
     int course[];
     public List<Class> kelas;
@@ -26,7 +26,10 @@ public class Student {
         this.id = id;
         kelas=new ArrayList<>();
     }
-
+    public Object clone() throws
+            CloneNotSupportedException {
+        return super.clone();
+    }
 
     public void rewriteKelas(List<Class> a){
 
