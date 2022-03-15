@@ -131,7 +131,7 @@ public class ITC {
 //        for(int w=0;w<nama.length;w++) {
 
         long startTime = 0;
-        namafile = "yach-fal17";
+        namafile = "lums-spr18";
         //myWriter = new FileWriter("C:/Users/wekan/Documents/tesis/dataset/Solusi Awal/" + namafile + "/"+pp+".xml");
         //myWriter = new FileWriter("C:/Users/wekan/OneDrive/Documents/tesis/dataset/" + namafile + ".xml");
 

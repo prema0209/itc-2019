@@ -1864,6 +1864,7 @@ public class Solution {
 
         }
 
+        courseBanyakKelas=new ArrayList<>();
 
         for(int i=0;i<c.size();i++){
 
