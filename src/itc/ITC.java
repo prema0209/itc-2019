@@ -45,49 +45,28 @@ public class ITC {
     public static ArrayList<PTimes> pt;
     public static int timePenalty;
     public static int distributionPenalty;
-    public static int distributionPenalty2;
+
     public static int roomPenalty;
     public static int studentPenalty;
-    public static int studentPenalty2;
+
     public static long totalTime;
     public static String algoritma;
     public static List<Course> courseBanyakKelas;
     public static int timeRoomDihapus;
     public static int ubahSolusi;
     public static int ubahSolusi2;
-    public static int ubahStudent;
-    public static int timeAwal;
-    public static int timePenalty2;
-    public static int roomAwal;
-    public static int roomPenalty2;
     public static String path;
     public static int student1;
     public static int student2;
-    public static int penaltyStudent1;
-    public static int penaltyStudent2;
-    public static int studentPenaltyOld;
     public static int fs;
     public static int fsBest;
     public static int fsBestGlobal;
     public static int[] penRoom;
-    public static int penRoomBaru;
-    public static int penRoomBaru2;
     public static int[] penTime;
-    public static int penTimeBaru;
-    public static int penTimeBaru2;
-    public static int[] penStudent;
-    public static int[] penStudentBaru;
-    public static int[] penStudentBaru2;
 
 
     public static int[] sameAttendees;
     public static int[] differentDays;
-    public static int[] differentRoom;
-    public static int[] differentTime;
-    public static int[] differentWeek;
-    public static int[] minGap;
-    public static int[] notOverlap;
-    public static int[] overlap;
     public static int[] sameDays;
     public static int[] sameRoom;
     public static int[] sameStart;
@@ -96,29 +75,7 @@ public class ITC {
     public static int[] workDay;
     public static int[] precedence;
     public static int[] MaxDays;
-    public static int[] MaxDayLoad;
-    public static int[] maxBreak;
-    public static int[] maxBlock;
 
-    public static int[] sameAttendeesBaru;
-    public static int[] differentDaysBaru;
-    public static int[] differentRoomBaru;
-    public static int[] differentTimeBaru;
-    public static int[] differentWeekBaru;
-    public static int[] minGapBaru;
-    public static int[] notOverlapBaru;
-    public static int[] overlapBaru;
-    public static int[] sameDaysBaru;
-    public static int[] sameRoomBaru;
-    public static int[] sameStartBaru;
-    public static int[] sameTimeBaru;
-    public static int[] sameWeeksBaru;
-    public static int[] workDayBaru;
-    public static int[] precedenceBaru;
-    public static int[] MaxDaysBaru;
-    public static int[] MaxDayLoadBaru;
-    public static int[] maxBreakBaru;
-    public static int[] maxBlockBaru;
 
     static int[] f;
 

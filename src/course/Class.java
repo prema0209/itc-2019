@@ -5209,132 +5209,132 @@ public class Class implements Cloneable {
         return t2;
     }
 
-    public boolean localSearch() {
-
-        Random rand = new Random();
-        int T = getTimeDipakai();
-        int R = getRoomDipakai();
-
-        int length1 = combinationTimeRoom.size();
-        konflik = new ArrayList[length1];
-        konflik2 = new ArrayList[length1];
-        for (int x = 0; x < konflik.length; x++) {
-            konflik[x] = new ArrayList<Integer>();
-            konflik2[x] = new ArrayList<Integer>();
-        }
-
-
-        List<int[]> listSolusi = new ArrayList<>();
-
-        makeCombination();
-
-        for (int i = 0; i < hapusJadwal.size(); i++) {
-            combinationTimeRoom.set(hapusJadwal.get(i), null);
-        }
-
-        int lenght1 = combinationTimeRoom.size();
-        for (int q = 0; q < length1; q++) {
-
-            boolean t = true;
-            boolean t2 = true;
-
-
-            int xx = rand.nextInt(combinationTimeRoom.size());
-
-
-            if (combinationTimeRoom.get(xx) == null) {
-
-                t = false;
-
-
-            } else {
-
-                int a = getCombinationTime(xx);
-
-                int b = getCombinationRoom(xx);
-
-                int r = -1;
-                if (b >= 0) {
-                    r = getRoom(b).getId();
-                }
-
-                boolean t3 = true;
-
-                if (a == T && b == R) t3 = false;
-
-
-                if (t3) {
-
-                    PTimes time = getTime(a);
-                    setRoomDipakai(b);
-                    setTimeDipakai(a);
-
-                    String week = time.getWeeks();
-                    String day = time.getDays();
-                    int start = time.getStart();
-                    int length = time.getLength();
-
-                    t2 = cekHardConstrain(week, day, start, length, r, getCombinationIndex(xx));
-
-
-                    if (t2) {
-                        if (!roomKosong) {
-                            t = ubah2(week, day, start, length, r, getCombinationIndex(xx), t2);
-
-                        } else {
-                            t = true;
-                        }
-
-                    }
-
-
-                    if (t && t2) {
-
-                        int x = calculatePenalty(2);
-
-                        int c[] = {a, b, x};
-
-
-                        listSolusi.add(c);
-
-                        setRoomDipakai(R);
-                        setTimeDipakai(T);
-
-                        rollbackPenalty();
-                    }
-                }
-            }
-
-            combinationTimeRoom.remove(xx);
-
-        }
-
-//        System.out.println("keluar");
-        if (listSolusi.size() == 0) {
-            setRoomDipakai(R);
-            setTimeDipakai(T);
-
-            return false;
-        }
-
-
-        int terbaik = listSolusi.get(0)[2];
-        int indexTerbaik = 0;
-        for (int i = 1; i < listSolusi.size(); i++) {
-
-            if (terbaik > listSolusi.get(i)[2]) {
-
-                indexTerbaik = i;
-            }
-        }
-
-        setRoomDipakai(listSolusi.get(indexTerbaik)[1]);
-        setTimeDipakai(listSolusi.get(indexTerbaik)[0]);
-
-
-        return true;
-
-    }
+//    public boolean localSearch() {
+//
+//        Random rand = new Random();
+//        int T = getTimeDipakai();
+//        int R = getRoomDipakai();
+//
+//        int length1 = combinationTimeRoom.size();
+//        konflik = new ArrayList[length1];
+//        konflik2 = new ArrayList[length1];
+//        for (int x = 0; x < konflik.length; x++) {
+//            konflik[x] = new ArrayList<Integer>();
+//            konflik2[x] = new ArrayList<Integer>();
+//        }
+//
+//
+//        List<int[]> listSolusi = new ArrayList<>();
+//
+//        makeCombination();
+//
+//        for (int i = 0; i < hapusJadwal.size(); i++) {
+//            combinationTimeRoom.set(hapusJadwal.get(i), null);
+//        }
+//
+//        int lenght1 = combinationTimeRoom.size();
+//        for (int q = 0; q < length1; q++) {
+//
+//            boolean t = true;
+//            boolean t2 = true;
+//
+//
+//            int xx = rand.nextInt(combinationTimeRoom.size());
+//
+//
+//            if (combinationTimeRoom.get(xx) == null) {
+//
+//                t = false;
+//
+//
+//            } else {
+//
+//                int a = getCombinationTime(xx);
+//
+//                int b = getCombinationRoom(xx);
+//
+//                int r = -1;
+//                if (b >= 0) {
+//                    r = getRoom(b).getId();
+//                }
+//
+//                boolean t3 = true;
+//
+//                if (a == T && b == R) t3 = false;
+//
+//
+//                if (t3) {
+//
+//                    PTimes time = getTime(a);
+//                    setRoomDipakai(b);
+//                    setTimeDipakai(a);
+//
+//                    String week = time.getWeeks();
+//                    String day = time.getDays();
+//                    int start = time.getStart();
+//                    int length = time.getLength();
+//
+//                    t2 = cekHardConstrain(week, day, start, length, r, getCombinationIndex(xx));
+//
+//
+//                    if (t2) {
+//                        if (!roomKosong) {
+//                            t = ubah2(week, day, start, length, r, getCombinationIndex(xx), t2);
+//
+//                        } else {
+//                            t = true;
+//                        }
+//
+//                    }
+//
+//
+//                    if (t && t2) {
+//
+//                        int x = calculatePenalty(2);
+//
+//                        int c[] = {a, b, x};
+//
+//
+//                        listSolusi.add(c);
+//
+//                        setRoomDipakai(R);
+//                        setTimeDipakai(T);
+//
+//                        rollbackPenalty();
+//                    }
+//                }
+//            }
+//
+//            combinationTimeRoom.remove(xx);
+//
+//        }
+//
+////        System.out.println("keluar");
+//        if (listSolusi.size() == 0) {
+//            setRoomDipakai(R);
+//            setTimeDipakai(T);
+//
+//            return false;
+//        }
+//
+//
+//        int terbaik = listSolusi.get(0)[2];
+//        int indexTerbaik = 0;
+//        for (int i = 1; i < listSolusi.size(); i++) {
+//
+//            if (terbaik > listSolusi.get(i)[2]) {
+//
+//                indexTerbaik = i;
+//            }
+//        }
+//
+//        setRoomDipakai(listSolusi.get(indexTerbaik)[1]);
+//        setTimeDipakai(listSolusi.get(indexTerbaik)[0]);
+//
+//
+//        return true;
+//
+//    }
 
     public boolean swap() {
 

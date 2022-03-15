@@ -737,10 +737,12 @@ public class Solution {
         }
 
 
+        if(x==1)x=0;
+
         if (x == 0) {
             t = kelas.get(ubahSolusi).mutate();
         } else if (x == 1) {
-            t = kelas.get(ubahSolusi).localSearch();
+//            t = kelas.get(ubahSolusi).localSearch();
         } else if (x == 2) {
 
             t = kelas.get(ubahSolusi).swap();
