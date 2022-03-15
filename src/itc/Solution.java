@@ -4,6 +4,8 @@ import course.Class;
 import course.Course;
 import studentDistribution.Student;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -1887,5 +1889,68 @@ public class Solution {
     }
 
 
+    public void printHasilPenalty(int i){
+        System.out.println("hasil akhir solusi ke "+i+":" + calculatePenalty(0));
+    }
 
+    public void printHasil(String path,String namafile, int pp, long totalTime, String algoritma) throws IOException {
+        FileWriter myWriter = new FileWriter(path + "hasil/" + namafile + "_" + pp + ".xml");
+
+        try {
+            String a = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+                    + "<!DOCTYPE solution PUBLIC\n"
+                    + "	\"-//ITC 2019//DTD Problem Format/EN\"\n"
+                    + "	\"http://www.itc2019.org/competition-format.dtd\">\n"
+                    + "<solution name=\"" + namafile + "\"\n"
+                    + "          runtime=\"" + totalTime + "\" cores=\"4\" technique=\"" + algoritma + "\"\n"
+                    + "          author=\"I Gusti Agung Premananda\" institution=\"ITS\" country=\"Indonesia\">";
+
+            myWriter.write(a);
+
+            for (int i = 0; i < kelas.size(); i++) {
+                int id = kelas.get(i).getId();
+                int room = kelas.get(i).getRoomDipakai();
+                int room2;
+                if (room < 0) {
+                    room2 = -1;
+                } else {
+                    room2 = kelas.get(i).getRoom(room).getId();
+                }
+
+                int time = kelas.get(i).getTimeDipakai();
+                String day;
+                int start;
+                String week;
+                if (time < 0) {
+                    day = "nan";
+                    start = -1;
+                    week = "nan";
+
+                } else {
+                    day = kelas.get(i).getTime(time).getDays();
+                    start = kelas.get(i).getTime(time).getStart();
+                    week = kelas.get(i).getTime(time).getWeeks();
+
+                }
+
+                if (kelas.get(i).roomKosong) {
+
+                    myWriter.write("<class id=\"" + id + "\" days=\"" + day + "\" start=\"" + start + "\" weeks=\"" + week + "\">");
+                } else {
+                    myWriter.write("<class id=\"" + id + "\" days=\"" + day + "\" start=\"" + start + "\" weeks=\"" + week + "\" room=\"" + room2 + "\">");
+                }
+
+                kelas.get(i).writeStudent();
+                myWriter.write("\n</class>");
+
+            }
+
+            myWriter.write("</solution>");
+            myWriter.close();
+            System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
 }

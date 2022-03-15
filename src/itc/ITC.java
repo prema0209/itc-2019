@@ -134,7 +134,7 @@ public class ITC {
         namafile = "yach-fal17";
         //myWriter = new FileWriter("C:/Users/wekan/Documents/tesis/dataset/Solusi Awal/" + namafile + "/"+pp+".xml");
         //myWriter = new FileWriter("C:/Users/wekan/OneDrive/Documents/tesis/dataset/" + namafile + ".xml");
-        myWriter = new FileWriter(path + "hasil/" + namafile + "_" + pp + ".xml");
+
 
 
         GetInput a = new GetInput();
@@ -181,6 +181,14 @@ public class ITC {
             GetSolusiAwal b = new GetSolusiAwal();
             solusi=new Solution[50];
 
+
+            for (int i = 0; i < courseBanyakKelas.size(); i++) {
+                if (courseBanyakKelas.get(i).students.size() == 0) {
+                    courseBanyakKelas.remove(i);
+                    i--;
+                }
+            }
+
             for(int i=0;i<solusi.length;i++){
 
                 for(int j=0;j<sortedClass.size();j++){
@@ -194,12 +202,7 @@ public class ITC {
             }
 
 
-            for (int i = 0; i < courseBanyakKelas.size(); i++) {
-                if (courseBanyakKelas.get(i).students.size() == 0) {
-                    courseBanyakKelas.remove(i);
-                    i--;
-                }
-            }
+
 
 
             double eks = 0.5;
@@ -216,21 +219,27 @@ public class ITC {
 
             }
 
-            for (int i = 0; i < bestSolusi.size(); i++) {
-                bestSolusi.get(i).rollbackStudentTerbaik();
-                sortedClass.set(i, (Class) bestSolusi.get(i).clone());
 
+
+            for(int i=0;i<solusi.length;i++){
+                solusi[i].printHasilPenalty(i);
             }
-            for (int i = 0; i < listStudent.length; i++) {
-                listStudent[i].rollbackKelasTerbaik();
-            }
+
+//            for (int i = 0; i < bestSolusi.size(); i++) {
+//                bestSolusi.get(i).rollbackStudentTerbaik();
+//                sortedClass.set(i, (Class) bestSolusi.get(i).clone());
+//
+//            }
+//            for (int i = 0; i < listStudent.length; i++) {
+//                listStudent[i].rollbackKelasTerbaik();
+//            }
 
 
 
             //System.gc();
-            System.out.println("fsglobal :" + fsBestGlobal);
+//            System.out.println("fsglobal :" + fsBestGlobal);
            // System.out.println("hasil akhir :" + calculatePenalty(0));
-            System.out.println(namafile);
+//            System.out.println(namafile);
 
 
 
@@ -247,37 +256,11 @@ public class ITC {
         }
 
 
-        //print hasil
-        for (int i = 0; i < sortedClass.size(); i++) {
-            int id = sortedClass.get(i).getId();
-            int room = sortedClass.get(i).getRoomDipakai();
-            int room2;
-            if (room < 0) {
-                room2 = -1;
-            } else {
-                room2 = sortedClass.get(i).getRoom(room).getId();
-            }
-
-            int time = sortedClass.get(i).getTimeDipakai();
-            String day;
-            int start;
-            String week;
-            if (time < 0) {
-                day = "nan";
-                start = -1;
-                week = "nan";
-
-            } else {
-                day = sortedClass.get(i).getTime(time).getDays();
-                start = sortedClass.get(i).getTime(time).getStart();
-                week = sortedClass.get(i).getTime(time).getWeeks();
-
-            }
-
-
+        for(int i=0;i<solusi.length;i++){
+            solusi[i].printHasil(path,namafile,i,totalTime,algoritma);
         }
 
-        printHasil();
+
 
 
         System.out.println("waktu :" + totalTime);
@@ -575,65 +558,7 @@ public class ITC {
 
     }
 
-    public static void printHasil() {
 
-        try {
-            String a = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-                    + "<!DOCTYPE solution PUBLIC\n"
-                    + "	\"-//ITC 2019//DTD Problem Format/EN\"\n"
-                    + "	\"http://www.itc2019.org/competition-format.dtd\">\n"
-                    + "<solution name=\"" + namafile + "\"\n"
-                    + "          runtime=\"" + totalTime + "\" cores=\"4\" technique=\"" + algoritma + "\"\n"
-                    + "          author=\"I Gusti Agung Premananda\" institution=\"ITS\" country=\"Indonesia\">";
-
-            myWriter.write(a);
-
-            for (int i = 0; i < sortedClass.size(); i++) {
-                int id = sortedClass.get(i).getId();
-                int room = sortedClass.get(i).getRoomDipakai();
-                int room2;
-                if (room < 0) {
-                    room2 = -1;
-                } else {
-                    room2 = sortedClass.get(i).getRoom(room).getId();
-                }
-
-                int time = sortedClass.get(i).getTimeDipakai();
-                String day;
-                int start;
-                String week;
-                if (time < 0) {
-                    day = "nan";
-                    start = -1;
-                    week = "nan";
-
-                } else {
-                    day = sortedClass.get(i).getTime(time).getDays();
-                    start = sortedClass.get(i).getTime(time).getStart();
-                    week = sortedClass.get(i).getTime(time).getWeeks();
-
-                }
-
-                if (sortedClass.get(i).roomKosong) {
-
-                    myWriter.write("<class id=\"" + id + "\" days=\"" + day + "\" start=\"" + start + "\" weeks=\"" + week + "\">");
-                } else {
-                    myWriter.write("<class id=\"" + id + "\" days=\"" + day + "\" start=\"" + start + "\" weeks=\"" + week + "\" room=\"" + room2 + "\">");
-                }
-
-                sortedClass.get(i).writeStudent();
-                myWriter.write("\n</class>");
-
-            }
-
-            myWriter.write("</solution>");
-            myWriter.close();
-            System.out.println("Successfully wrote to the file.");
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
-    }
 
     public static void listBatasan() {
 
