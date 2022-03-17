@@ -320,7 +320,7 @@ public class NotOverLap implements Cloneable{
     }
 
     public int calculatePenalty(){
-        updateClass();
+
         int pen=0;
 
         for(int i=0;i<kelas.size();i++){

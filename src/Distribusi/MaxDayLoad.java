@@ -232,7 +232,7 @@ public class MaxDayLoad implements Cloneable{
 
 
     public int calculatePenalty(){
-        updateClass();
+      //  updateClass();
         int pen=0;
 
         //ArrayList<Integer>[] Days = new ArrayList[nrDays * nrWeeks];

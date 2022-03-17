@@ -193,7 +193,7 @@ public class SameTime implements Cloneable{
 
     }
     public int calculatePenalty(){
-        updateClass();
+       // updateClass();
         int pen=0;
 
         for(int i=0;i<kelas.size();i++){

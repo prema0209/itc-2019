@@ -296,7 +296,7 @@ public class MaxBlock implements Cloneable{
     }
 
     public int calculatePenalty(){
-        updateClass();
+       // updateClass();
         int pen=0;
 
         petakan();

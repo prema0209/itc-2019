@@ -228,7 +228,7 @@ public class MaxDays implements Cloneable{
 
     public int calculatePenalty(){
 
-        updateClass();
+       // updateClass();
 
         Random rand = new Random();
 

@@ -424,7 +424,7 @@ public class Precedence implements Cloneable{
         return index;
     }
     public int calculatePenalty(){
-        updateClass();
+       // updateClass();
         int pen=0;
 
         for(int i=0;i<kelas.size();i++){

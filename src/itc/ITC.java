@@ -179,7 +179,7 @@ public class ITC {
         if (baca == 2) {
             System.gc();
             GetSolusiAwal b = new GetSolusiAwal();
-            solusi=new Solution[1];
+            solusi=new Solution[5];
 
 
 
@@ -212,13 +212,13 @@ public class ITC {
 
             double eks = 0.5;
 
-            solusi[0].optimize(0);
 
-//            for(int i=0;i<solusi.length;i++){
-//
-//                solusi[i].optimize(0);
-//
-//            }
+
+            for(int i=0;i<solusi.length;i++){
+
+                solusi[i].optimize(0);
+
+            }
 
 
 

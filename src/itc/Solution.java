@@ -1,5 +1,7 @@
 package itc;
 
+import Distribusi.*;
+
 import course.Class;
 import course.Course;
 import studentDistribution.Distribution;
@@ -11,12 +13,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static itc.GetInput.*;
+
 import static itc.GetInput.listRoom;
 import static itc.ITC.ubahSolusi2;
 import static itc.ITC.ubahSolusi;
 import static itc.ITC.Times2;
 import static itc.ITC.Rooms2;
+import static itc.GetInput.listStudent;
+import static itc.GetInput.t;
+import static itc.GetInput.d;
+import static itc.GetInput.r;
+import static itc.GetInput.s;
+import static itc.GetInput.slot;
+import static itc.GetInput.nrDays;
+import static itc.GetInput.nrWeeks;
 
 
 
@@ -31,6 +41,26 @@ import static itc.ITC.student2;
 
 
 public class Solution {
+
+    public  List<SameTime> sameTimeSoft;
+    public  List<SameDays> sameDaysSoft;
+    public  List<SameStart> sameStartSoft;
+    public  List<SameRoom> sameRoomSoft;
+    public  List<DifferentTime> differentTimeSoft;
+    public  List<DifferentDays> differentDaysSoft;
+    public  List<SameWeek> sameWeeksSoft;
+    public  List<DifferentRoom> differentRoomSoft;
+    public  List<SameAttendees> sameAttendeesSoft;
+    public  List<NotOverLap> notOverlapSoft;
+    public  List<WorkDay> workDaySoft;
+    public  List<MinGap> minGapSoft;
+    public  List<DifferentWeek> differentWeekSoft;
+    public  List<Overlap> overlapSoft;
+    public  List<Distribusi.MaxDays> MaxDaysSoft;
+    public  List<Distribusi.MaxDayLoad> MaxDayLoadSoft;
+    public  List<MaxBreak> maxBreakSoft;
+    public  List<Precedence> precedenceSoft;
+    public  List<MaxBlock> maxBlockSoft;
 
     public  int[] penStudent;
     public  int[] penStudentBaru;
@@ -1768,7 +1798,7 @@ public class Solution {
         notImprove = 0;
 
 
-        double ii = 50000;
+        double ii = 500000;
 
         for (int i = 0; i < ii; i++) {
 
@@ -1811,14 +1841,14 @@ public class Solution {
                     // System.out.println("masuk 2");
                 double p2 = rand.nextDouble();
 
-                if(p2<0.5){
+                if(p2<1){
 
-                    System.out.println("masuk eksploid class");
+                   // System.out.println("masuk eksploid class");
                    exploidClass(time,room);
 
                 }
                 else{
-                    System.out.println("masuk eksplorasi class");
+                   // System.out.println("masuk eksplorasi class");
                     exploreClass(room,time);
 
                 }
@@ -1855,6 +1885,8 @@ public class Solution {
             kelas.get(i).rewriteDistribution(kelas);
 
         }
+
+        rewriteSoftDistribution(kelas);
 //
 //
 //
@@ -1909,17 +1941,9 @@ public class Solution {
 
 
 
-
-
     }
 
-    public void rewriteDistributionConstraint(){
 
-
-
-
-
-    }
 
 
     public void printHasilPenalty(int i){
@@ -1985,5 +2009,187 @@ public class Solution {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+    }
+
+    public  void rewriteSoftDistribution(List<Class> kel) throws CloneNotSupportedException {
+
+        List<SameAttendees> sameAttSoft = new ArrayList<>();
+        for (int i = 0; i < GetInput.sameAttendeesSoft.size(); i++) {
+            sameAttSoft.add((SameAttendees) GetInput.sameAttendeesSoft.get(i).clone());
+        }
+        sameAttendeesSoft=sameAttSoft;
+        for(int i=0;i<sameAttendeesSoft.size();i++){
+            sameAttendeesSoft.get(i).rewritekelas(kel);
+        }
+
+
+
+        List<DifferentDays> difdaySoft = new ArrayList<>();
+        for (int i = 0; i < GetInput.differentDaysSoft.size(); i++) {
+            difdaySoft.add((DifferentDays) GetInput.differentDaysSoft.get(i).clone());
+        }
+        differentDaysSoft=difdaySoft;
+        for(int i=0;i<differentDaysSoft.size();i++){
+            differentDaysSoft.get(i).rewritekelas(kel);
+        }
+
+
+        List<DifferentRoom> difroomSoft = new ArrayList<>();
+        for (int i = 0; i < GetInput.differentRoomSoft.size(); i++) {
+            difroomSoft.add((DifferentRoom) GetInput.differentRoomSoft.get(i).clone());
+        }
+        differentRoomSoft=difroomSoft;
+        for(int i=0;i<differentRoomSoft.size();i++){
+            differentRoomSoft.get(i).rewritekelas(kel);
+        }
+
+
+        List<DifferentTime> diftimeSoft = new ArrayList<>();
+        for (int i = 0; i < GetInput.differentTimeSoft.size(); i++) {
+            diftimeSoft.add((DifferentTime) GetInput.differentTimeSoft.get(i).clone());
+        }
+        differentTimeSoft=diftimeSoft;
+        for(int i=0;i<differentTimeSoft.size();i++){
+            differentTimeSoft.get(i).rewritekelas(kel);
+        }
+
+        List<DifferentWeek> difweekSoft = new ArrayList<>();
+        for (int i = 0; i < GetInput.differentWeekSoft.size(); i++) {
+            difweekSoft.add((DifferentWeek) GetInput.differentWeekSoft.get(i).clone());
+        }
+        differentWeekSoft=difweekSoft;
+        for(int i=0;i<differentWeekSoft.size();i++){
+            differentWeekSoft.get(i).rewritekelas(kel);
+        }
+
+        List<MaxBlock> mBlockSoft = new ArrayList<>();
+        for (int i = 0; i < GetInput.maxBlockSoft.size(); i++) {
+            mBlockSoft.add((MaxBlock) GetInput.maxBlockSoft.get(i).clone());
+        }
+        maxBlockSoft=mBlockSoft;
+        for(int i=0;i<maxBlockSoft.size();i++){
+            maxBlockSoft.get(i).rewritekelas(kel);
+        }
+
+        List<MaxBreak> mBreakSoft = new ArrayList<>();
+        for (int i = 0; i < GetInput.maxBreakSoft.size(); i++) {
+            mBreakSoft.add((MaxBreak) GetInput.maxBreakSoft.get(i).clone());
+        }
+        maxBreakSoft=mBreakSoft;
+        for(int i=0;i<maxBreakSoft.size();i++){
+            maxBreakSoft.get(i).rewritekelas(kel);
+        }
+
+        List<MaxDayLoad> mDLSoft = new ArrayList<>();
+        for (int i = 0; i < GetInput.MaxDayLoadSoft.size(); i++) {
+            mDLSoft.add((MaxDayLoad) GetInput.MaxDayLoadSoft.get(i).clone());
+        }
+        MaxDayLoadSoft=mDLSoft;
+        for(int i=0;i<MaxDayLoadSoft.size();i++){
+            MaxDayLoadSoft.get(i).rewritekelas(kel);
+        }
+
+        List<MaxDays> mDaysSoft = new ArrayList<>();
+        for (int i = 0; i < GetInput.MaxDaysSoft.size(); i++) {
+            mDaysSoft.add((MaxDays) GetInput.MaxDaysSoft.get(i).clone());
+        }
+        MaxDaysSoft=mDaysSoft;
+        for(int i=0;i<MaxDaysSoft.size();i++){
+            MaxDaysSoft.get(i).rewritekelas(kel);
+        }
+
+        List<MinGap> mGSoft = new ArrayList<>();
+        for (int i = 0; i < GetInput.minGapSoft.size(); i++) {
+            mGSoft.add((MinGap) GetInput.minGapSoft.get(i).clone());
+        }
+        minGapSoft=mGSoft;
+        for(int i=0;i<minGapSoft.size();i++){
+            minGapSoft.get(i).rewritekelas(kel);
+        }
+
+        List<NotOverLap> notOLSoft = new ArrayList<>();
+        for (int i = 0; i < GetInput.notOverlapSoft.size(); i++) {
+            notOLSoft.add((NotOverLap) GetInput.notOverlapSoft.get(i).clone());
+        }
+        notOverlapSoft=notOLSoft;
+        for(int i=0;i<notOverlapSoft.size();i++){
+            notOverlapSoft.get(i).rewritekelas(kel);
+        }
+
+        List<Overlap> oLSoft = new ArrayList<>();
+        for (int i = 0; i < GetInput.overlapSoft.size(); i++) {
+            oLSoft.add((Overlap) GetInput.overlapSoft.get(i).clone());
+        }
+        overlapSoft=oLSoft;
+        for(int i=0;i<overlapSoft.size();i++){
+            overlapSoft.get(i).rewritekelas(kel);
+        }
+
+
+
+        List<SameDays> sDaySoft = new ArrayList<>();
+        for (int i = 0; i < GetInput.sameDaysSoft.size(); i++) {
+            sDaySoft.add((SameDays) GetInput.sameDaysSoft.get(i).clone());
+        }
+        sameDaysSoft=sDaySoft;
+        for(int i=0;i<sameDaysSoft.size();i++){
+            sameDaysSoft.get(i).rewritekelas(kel);
+        }
+
+        List<SameRoom> sRoomSoft = new ArrayList<>();
+        for (int i = 0; i < GetInput.sameRoomSoft.size(); i++) {
+            sRoomSoft.add((SameRoom) GetInput.sameRoomSoft.get(i).clone());
+        }
+        sameRoomSoft=sRoomSoft;
+        for(int i=0;i<sameRoomSoft.size();i++){
+            sameRoomSoft.get(i).rewritekelas(kel);
+        }
+
+        List<SameStart> sStartSoft = new ArrayList<>();
+        for (int i = 0; i < GetInput.sameStartSoft.size(); i++) {
+            sStartSoft.add((SameStart) GetInput.sameStartSoft.get(i).clone());
+        }
+        sameStartSoft=sStartSoft;
+        for(int i=0;i<sameStartSoft.size();i++){
+            sameStartSoft.get(i).rewritekelas(kel);
+        }
+
+        List<SameTime> sTimeSoft = new ArrayList<>();
+        for (int i = 0; i < GetInput.sameTimeSoft.size(); i++) {
+            sTimeSoft.add((SameTime) GetInput.sameTimeSoft.get(i).clone());
+        }
+        sameTimeSoft=sTimeSoft;
+        for(int i=0;i<sameTimeSoft.size();i++){
+            sameTimeSoft.get(i).rewritekelas(kel);
+        }
+
+        List<SameWeek> sWeekSoft = new ArrayList<>();
+        for (int i = 0; i < GetInput.sameWeeksSoft.size(); i++) {
+            sWeekSoft.add((SameWeek) GetInput.sameWeeksSoft.get(i).clone());
+        }
+        sameWeeksSoft=sWeekSoft;
+        for(int i=0;i<sameWeeksSoft.size();i++){
+            sameWeeksSoft.get(i).rewritekelas(kel);
+        }
+
+        List<WorkDay> wDaySoft = new ArrayList<>();
+        for (int i = 0; i < GetInput.workDaySoft.size(); i++) {
+            wDaySoft.add((WorkDay) GetInput.workDaySoft.get(i).clone());
+        }
+        workDaySoft=wDaySoft;
+        for(int i=0;i<workDaySoft.size();i++){
+            workDaySoft.get(i).rewritekelas(kel);
+        }
+
+
+        List<Precedence> preSoft = new ArrayList<>();
+        for (int i = 0; i < GetInput.precedenceSoft.size(); i++) {
+            preSoft.add((Precedence) GetInput.precedenceSoft.get(i).clone());
+        }
+        precedenceSoft=preSoft;
+        for(int i=0;i<precedenceSoft.size();i++){
+            precedenceSoft.get(i).rewritekelas(kel);
+        }
+
     }
 }
