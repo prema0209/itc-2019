@@ -23,7 +23,7 @@ import java.util.List;
  *
  * @author igust
  */
-public class MaxBlock {
+public class MaxBlock implements Cloneable{
 
     public List<Class> kelas;
     int M, S;
@@ -33,6 +33,31 @@ public class MaxBlock {
     public int penaltyCadangan;
     public List<Integer> kelasId;
 
+
+    public Object clone() throws
+            CloneNotSupportedException {
+        return super.clone();
+    }
+
+    public void rewritekelas(List<Class> a) throws CloneNotSupportedException {
+        List<Class> k=new ArrayList<>();
+
+
+        for(int i=0;i<a.size();i++){
+
+            for(int j=0;j<kelas.size();j++){
+                if(kelas.get(j).id==a.get(i).id){
+                    k.add(a.get(i));
+                    break;
+                }
+            }
+
+
+        }
+        kelas=k;
+
+
+    }
     public boolean cekKelas(int a){
         for(int i=0;i<kelas.size();i++){
             if(kelas.get(i).getId()==a){

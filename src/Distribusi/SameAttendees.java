@@ -10,13 +10,39 @@ import static itc.GetInput.listRoom;
 import static itc.ITC.*;
 import static itc.ITC.sortedClass;
 
-public class SameAttendees {
+public class SameAttendees implements Cloneable{
     public List<Class> kelas;
     int penalty;
     public int penaltyTerakhir;
     public int penaltyCadangan;
     public List<Integer> kelasId;
 
+
+
+    public Object clone() throws
+            CloneNotSupportedException {
+        return super.clone();
+    }
+
+    public void rewritekelas(List<Class> a) throws CloneNotSupportedException {
+        List<Class> k=new ArrayList<>();
+
+
+        for(int i=0;i<a.size();i++){
+
+            for(int j=0;j<kelas.size();j++){
+                if(kelas.get(j).id==a.get(i).id){
+                    k.add(a.get(i));
+                    break;
+                }
+            }
+
+
+        }
+        kelas=k;
+
+
+    }
 
 
     public SameAttendees() {
@@ -59,13 +85,6 @@ public class SameAttendees {
         return false;
     }
 
-    public boolean cekIsi(Class a){
-        if(kelas.contains(a)){
-            return true;
-        }
-        return false;
-
-    }
 
 
     public void addClass(Class a){
@@ -73,13 +92,11 @@ public class SameAttendees {
         kelas.add(a);
     }
 
-//    public boolean cekEliminasi(){
-//
-//    }
 
     public List<Class> getKelas() {
         return kelas;
     }
+
 
 
     public int calculatePenalty(){
@@ -524,10 +541,7 @@ public class SameAttendees {
 
                     boolean coba = ((end + roomTravel) <= start2) || ((end2 + roomTravel) <= start) || (!d || !w);
 
-//                    if (d || w) {
-//                        System.out.println(end + " " + roomTravel + " " + start2 + " " + end2 + " " + roomTravel2 + " " + start + d + w);
-//                        System.out.println(coba);
-//                    }
+
                     if (!coba) {
                         if(id==1246){
                             System.out.println("ini masalah "+kelas.get(i).getId());

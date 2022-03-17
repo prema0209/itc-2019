@@ -10,7 +10,7 @@ import static itc.GetInput.*;
 import static itc.ITC.konflik;
 import static itc.ITC.sortedClass;
 
-public class MaxBreak {
+public class MaxBreak implements Cloneable{
 
 
     public List<Class> kelas;
@@ -27,6 +27,32 @@ public class MaxBreak {
             }
         }
         return false;
+    }
+
+
+    public Object clone() throws
+            CloneNotSupportedException {
+        return super.clone();
+    }
+
+    public void rewritekelas(List<Class> a) throws CloneNotSupportedException {
+        List<Class> k=new ArrayList<>();
+
+
+        for(int i=0;i<a.size();i++){
+
+            for(int j=0;j<kelas.size();j++){
+                if(kelas.get(j).id==a.get(i).id){
+                    k.add(a.get(i));
+                    break;
+                }
+            }
+
+
+        }
+        kelas=k;
+
+
     }
 
     public void updateClass(){

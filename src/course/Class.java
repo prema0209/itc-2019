@@ -18,19 +18,7 @@ import java.util.Random;
 
 import static itc.GetInput.listClass;
 import static itc.GetInput.slot;
-import static itc.ITC.timeRoomDihapus;
-import static itc.ITC.sortedClass;
-import static itc.ITC.myWriter;
-import static itc.ITC.konflik;
-import static itc.ITC.pt;
-import static itc.ITC.konflik2;
-
-import static itc.ITC.Times2;
-import static itc.ITC.Rooms2;
-import static itc.ITC.ubahSolusi2;
-import static itc.ITC.hapus;
-import static itc.ITC.jadwal;
-import static itc.ITC.jadwalIndex;
+import static itc.ITC.*;
 
 
 /**
@@ -131,6 +119,411 @@ public class Class implements Cloneable {
 
     public boolean statusParent;
 
+
+
+
+    public void rewriteDistribution(List<Class> kel) throws CloneNotSupportedException {
+        List<SameAttendees> sameAtt = new ArrayList<>();
+        for (int i = 0; i < sameAttendees.size(); i++) {
+            sameAtt.add((SameAttendees) sameAttendees.get(i).clone());
+        }
+        sameAttendees=sameAtt;
+        for(int i=0;i<sameAttendees.size();i++){
+            sameAttendees.get(i).rewritekelas(kel);
+        }
+
+
+
+        List<DifferentDays> difday = new ArrayList<>();
+        for (int i = 0; i < differentDays.size(); i++) {
+            difday.add((DifferentDays) differentDays.get(i).clone());
+        }
+        differentDays=difday;
+        for(int i=0;i<differentDays.size();i++){
+            differentDays.get(i).rewritekelas(kel);
+        }
+
+
+        List<DifferentRoom> difroom = new ArrayList<>();
+        for (int i = 0; i < differentRoom.size(); i++) {
+            difroom.add((DifferentRoom) differentRoom.get(i).clone());
+        }
+        differentRoom=difroom;
+        for(int i=0;i<differentRoom.size();i++){
+            differentRoom.get(i).rewritekelas(kel);
+        }
+
+
+        List<DifferentTime> diftime = new ArrayList<>();
+        for (int i = 0; i < differentTime.size(); i++) {
+            diftime.add((DifferentTime) differentTime.get(i).clone());
+        }
+        differentTime=diftime;
+        for(int i=0;i<differentTime.size();i++){
+            differentTime.get(i).rewritekelas(kel);
+        }
+
+        List<DifferentWeek> difweek = new ArrayList<>();
+        for (int i = 0; i < differentWeek.size(); i++) {
+            difweek.add((DifferentWeek) differentWeek.get(i).clone());
+        }
+        differentWeek=difweek;
+        for(int i=0;i<differentWeek.size();i++){
+            differentWeek.get(i).rewritekelas(kel);
+        }
+
+        List<MaxBlock> mBlock = new ArrayList<>();
+        for (int i = 0; i < maxBlock.size(); i++) {
+            mBlock.add((MaxBlock) maxBlock.get(i).clone());
+        }
+        maxBlock=mBlock;
+        for(int i=0;i<maxBlock.size();i++){
+            maxBlock.get(i).rewritekelas(kel);
+        }
+
+        List<MaxBreak> mBreak = new ArrayList<>();
+        for (int i = 0; i < maxBreak.size(); i++) {
+            mBreak.add((MaxBreak) maxBreak.get(i).clone());
+        }
+        maxBreak=mBreak;
+        for(int i=0;i<maxBreak.size();i++){
+            maxBreak.get(i).rewritekelas(kel);
+        }
+
+        List<MaxDayLoad> mDL = new ArrayList<>();
+        for (int i = 0; i < MaxDayLoad.size(); i++) {
+            mDL.add((MaxDayLoad) MaxDayLoad.get(i).clone());
+        }
+        MaxDayLoad=mDL;
+        for(int i=0;i<MaxDayLoad.size();i++){
+            MaxDayLoad.get(i).rewritekelas(kel);
+        }
+
+        List<MaxDays> mDays = new ArrayList<>();
+        for (int i = 0; i < MaxDays.size(); i++) {
+            mDays.add((MaxDays) MaxDays.get(i).clone());
+        }
+        MaxDays=mDays;
+        for(int i=0;i<MaxDays.size();i++){
+            MaxDays.get(i).rewritekelas(kel);
+        }
+
+        List<MinGap> mG = new ArrayList<>();
+        for (int i = 0; i < minGap.size(); i++) {
+            mG.add((MinGap) minGap.get(i).clone());
+        }
+        minGap=mG;
+        for(int i=0;i<minGap.size();i++){
+            minGap.get(i).rewritekelas(kel);
+        }
+
+        List<NotOverLap> notOL = new ArrayList<>();
+        for (int i = 0; i < notOverlap.size(); i++) {
+            notOL.add((NotOverLap) notOverlap.get(i).clone());
+        }
+        notOverlap=notOL;
+        for(int i=0;i<notOverlap.size();i++){
+            notOverlap.get(i).rewritekelas(kel);
+        }
+
+        List<Overlap> oL = new ArrayList<>();
+        for (int i = 0; i < overlap.size(); i++) {
+            oL.add((Overlap) overlap.get(i).clone());
+        }
+        overlap=oL;
+        for(int i=0;i<overlap.size();i++){
+            overlap.get(i).rewritekelas(kel);
+        }
+
+        List<Class> pSeb=new ArrayList<>();
+
+
+        for(int i=0;i<precedenceSebelum.size();i++){
+
+            for(int j=0;j<kel.size();j++){
+                if(kel.get(j).id==precedenceSebelum.get(i).id){
+                    pSeb.add(kel.get(j));
+                    break;
+                }
+            }
+        }
+
+        precedenceSebelum=pSeb;
+
+
+        List<Class> pSed=new ArrayList<>();
+
+
+        for(int i=0;i<precedenceSesudah.size();i++){
+
+            for(int j=0;j<kel.size();j++){
+                if(kel.get(j).id==precedenceSesudah.get(i).id){
+                    pSed.add(kel.get(j));
+                    break;
+                }
+            }
+        }
+
+        precedenceSesudah=pSed;
+
+        List<SameDays> sDay = new ArrayList<>();
+        for (int i = 0; i < sameDays.size(); i++) {
+            sDay.add((SameDays) sameDays.get(i).clone());
+        }
+        sameDays=sDay;
+        for(int i=0;i<sameDays.size();i++){
+            sameDays.get(i).rewritekelas(kel);
+        }
+
+        List<SameRoom> sRoom = new ArrayList<>();
+        for (int i = 0; i < sameRoom.size(); i++) {
+            sRoom.add((SameRoom) sameRoom.get(i).clone());
+        }
+        sameRoom=sRoom;
+        for(int i=0;i<sameRoom.size();i++){
+            sameRoom.get(i).rewritekelas(kel);
+        }
+
+        List<SameStart> sStart = new ArrayList<>();
+        for (int i = 0; i < sameStart.size(); i++) {
+            sStart.add((SameStart) sameStart.get(i).clone());
+        }
+        sameStart=sStart;
+        for(int i=0;i<sameStart.size();i++){
+            sameStart.get(i).rewritekelas(kel);
+        }
+
+        List<SameTime> sTime = new ArrayList<>();
+        for (int i = 0; i < sameTime.size(); i++) {
+            sTime.add((SameTime) sameTime.get(i).clone());
+        }
+        sameTime=sTime;
+        for(int i=0;i<sameTime.size();i++){
+            sameTime.get(i).rewritekelas(kel);
+        }
+
+        List<SameWeek> sWeek = new ArrayList<>();
+        for (int i = 0; i < sameWeeks.size(); i++) {
+            sWeek.add((SameWeek) sameWeeks.get(i).clone());
+        }
+        sameWeeks=sWeek;
+        for(int i=0;i<sameWeeks.size();i++){
+            sameWeeks.get(i).rewritekelas(kel);
+        }
+
+        List<WorkDay> wDay = new ArrayList<>();
+        for (int i = 0; i < workDay.size(); i++) {
+            wDay.add((WorkDay) workDay.get(i).clone());
+        }
+        workDay=wDay;
+        for(int i=0;i<workDay.size();i++){
+            workDay.get(i).rewritekelas(kel);
+        }
+
+        //////////////////////////////////////////////////////////////////////////////////
+
+
+        List<SameAttendees> sameAttSoft = new ArrayList<>();
+        for (int i = 0; i < sameAttendeesSoft.size(); i++) {
+            sameAttSoft.add((SameAttendees) sameAttendeesSoft.get(i).clone());
+        }
+        sameAttendeesSoft=sameAttSoft;
+        for(int i=0;i<sameAttendeesSoft.size();i++){
+            sameAttendeesSoft.get(i).rewritekelas(kel);
+        }
+
+
+
+        List<DifferentDays> difdaySoft = new ArrayList<>();
+        for (int i = 0; i < differentDaysSoft.size(); i++) {
+            difdaySoft.add((DifferentDays) differentDaysSoft.get(i).clone());
+        }
+        differentDaysSoft=difdaySoft;
+        for(int i=0;i<differentDaysSoft.size();i++){
+            differentDaysSoft.get(i).rewritekelas(kel);
+        }
+
+
+        List<DifferentRoom> difroomSoft = new ArrayList<>();
+        for (int i = 0; i < differentRoomSoft.size(); i++) {
+            difroomSoft.add((DifferentRoom) differentRoomSoft.get(i).clone());
+        }
+        differentRoomSoft=difroomSoft;
+        for(int i=0;i<differentRoomSoft.size();i++){
+            differentRoomSoft.get(i).rewritekelas(kel);
+        }
+
+
+        List<DifferentTime> diftimeSoft = new ArrayList<>();
+        for (int i = 0; i < differentTimeSoft.size(); i++) {
+            diftimeSoft.add((DifferentTime) differentTimeSoft.get(i).clone());
+        }
+        differentTimeSoft=diftimeSoft;
+        for(int i=0;i<differentTimeSoft.size();i++){
+            differentTimeSoft.get(i).rewritekelas(kel);
+        }
+
+        List<DifferentWeek> difweekSoft = new ArrayList<>();
+        for (int i = 0; i < differentWeekSoft.size(); i++) {
+            difweekSoft.add((DifferentWeek) differentWeekSoft.get(i).clone());
+        }
+        differentWeekSoft=difweekSoft;
+        for(int i=0;i<differentWeekSoft.size();i++){
+            differentWeekSoft.get(i).rewritekelas(kel);
+        }
+
+        List<MaxBlock> mBlockSoft = new ArrayList<>();
+        for (int i = 0; i < maxBlockSoft.size(); i++) {
+            mBlockSoft.add((MaxBlock) maxBlockSoft.get(i).clone());
+        }
+        maxBlockSoft=mBlockSoft;
+        for(int i=0;i<maxBlockSoft.size();i++){
+            maxBlockSoft.get(i).rewritekelas(kel);
+        }
+
+        List<MaxBreak> mBreakSoft = new ArrayList<>();
+        for (int i = 0; i < maxBreakSoft.size(); i++) {
+            mBreakSoft.add((MaxBreak) maxBreakSoft.get(i).clone());
+        }
+        maxBreakSoft=mBreakSoft;
+        for(int i=0;i<maxBreakSoft.size();i++){
+            maxBreakSoft.get(i).rewritekelas(kel);
+        }
+
+        List<MaxDayLoad> mDLSoft = new ArrayList<>();
+        for (int i = 0; i < MaxDayLoadSoft.size(); i++) {
+            mDLSoft.add((MaxDayLoad) MaxDayLoadSoft.get(i).clone());
+        }
+        MaxDayLoadSoft=mDLSoft;
+        for(int i=0;i<MaxDayLoadSoft.size();i++){
+            MaxDayLoadSoft.get(i).rewritekelas(kel);
+        }
+
+        List<MaxDays> mDaysSoft = new ArrayList<>();
+        for (int i = 0; i < MaxDaysSoft.size(); i++) {
+            mDaysSoft.add((MaxDays) MaxDaysSoft.get(i).clone());
+        }
+        MaxDaysSoft=mDaysSoft;
+        for(int i=0;i<MaxDaysSoft.size();i++){
+            MaxDaysSoft.get(i).rewritekelas(kel);
+        }
+
+        List<MinGap> mGSoft = new ArrayList<>();
+        for (int i = 0; i < minGapSoft.size(); i++) {
+            mGSoft.add((MinGap) minGapSoft.get(i).clone());
+        }
+        minGapSoft=mGSoft;
+        for(int i=0;i<minGapSoft.size();i++){
+            minGapSoft.get(i).rewritekelas(kel);
+        }
+
+        List<NotOverLap> notOLSoft = new ArrayList<>();
+        for (int i = 0; i < notOverlapSoft.size(); i++) {
+            notOLSoft.add((NotOverLap) notOverlapSoft.get(i).clone());
+        }
+        notOverlapSoft=notOLSoft;
+        for(int i=0;i<notOverlapSoft.size();i++){
+            notOverlapSoft.get(i).rewritekelas(kel);
+        }
+
+        List<Overlap> oLSoft = new ArrayList<>();
+        for (int i = 0; i < overlapSoft.size(); i++) {
+            oLSoft.add((Overlap) overlapSoft.get(i).clone());
+        }
+        overlapSoft=oLSoft;
+        for(int i=0;i<overlapSoft.size();i++){
+            overlapSoft.get(i).rewritekelas(kel);
+        }
+
+        List<Class> pSebSoft=new ArrayList<>();
+
+
+        for(int i=0;i<precedenceSebelumSoft.size();i++){
+
+            for(int j=0;j<kel.size();j++){
+                if(kel.get(j).id==precedenceSebelumSoft.get(i).id){
+                    pSebSoft.add(kel.get(j));
+                    break;
+                }
+            }
+        }
+
+        precedenceSebelumSoft=pSebSoft;
+
+
+        List<Class> pSedSoft=new ArrayList<>();
+
+
+        for(int i=0;i<precedenceSesudahSoft.size();i++){
+
+            for(int j=0;j<kel.size();j++){
+                if(kel.get(j).id==precedenceSesudahSoft.get(i).id){
+                    pSedSoft.add(kel.get(j));
+                    break;
+                }
+            }
+        }
+
+        precedenceSesudahSoft=pSedSoft;
+
+        List<SameDays> sDaySoft = new ArrayList<>();
+        for (int i = 0; i < sameDaysSoft.size(); i++) {
+            sDaySoft.add((SameDays) sameDaysSoft.get(i).clone());
+        }
+        sameDaysSoft=sDaySoft;
+        for(int i=0;i<sameDaysSoft.size();i++){
+            sameDaysSoft.get(i).rewritekelas(kel);
+        }
+
+        List<SameRoom> sRoomSoft = new ArrayList<>();
+        for (int i = 0; i < sameRoomSoft.size(); i++) {
+            sRoomSoft.add((SameRoom) sameRoomSoft.get(i).clone());
+        }
+        sameRoomSoft=sRoomSoft;
+        for(int i=0;i<sameRoomSoft.size();i++){
+            sameRoomSoft.get(i).rewritekelas(kel);
+        }
+
+        List<SameStart> sStartSoft = new ArrayList<>();
+        for (int i = 0; i < sameStartSoft.size(); i++) {
+            sStartSoft.add((SameStart) sameStartSoft.get(i).clone());
+        }
+        sameStartSoft=sStartSoft;
+        for(int i=0;i<sameStartSoft.size();i++){
+            sameStartSoft.get(i).rewritekelas(kel);
+        }
+
+        List<SameTime> sTimeSoft = new ArrayList<>();
+        for (int i = 0; i < sameTimeSoft.size(); i++) {
+            sTimeSoft.add((SameTime) sameTimeSoft.get(i).clone());
+        }
+        sameTimeSoft=sTimeSoft;
+        for(int i=0;i<sameTimeSoft.size();i++){
+            sameTimeSoft.get(i).rewritekelas(kel);
+        }
+
+        List<SameWeek> sWeekSoft = new ArrayList<>();
+        for (int i = 0; i < sameWeeksSoft.size(); i++) {
+            sWeekSoft.add((SameWeek) sameWeeksSoft.get(i).clone());
+        }
+        sameWeeksSoft=sWeekSoft;
+        for(int i=0;i<sameWeeksSoft.size();i++){
+            sameWeeksSoft.get(i).rewritekelas(kel);
+        }
+
+        List<WorkDay> wDaySoft = new ArrayList<>();
+        for (int i = 0; i < workDaySoft.size(); i++) {
+            wDaySoft.add((WorkDay) workDaySoft.get(i).clone());
+        }
+        workDaySoft=wDaySoft;
+        for(int i=0;i<workDaySoft.size();i++){
+            workDaySoft.get(i).rewritekelas(kel);
+        }
+
+
+
+    }
+
     public void setStudentTerbaik() {
         studentTerbaik = new ArrayList<>();
         for (int i = 0; i < student.size(); i++) {
@@ -189,7 +582,7 @@ public class Class implements Cloneable {
         roomDipakai = -1;
         timeDipakai = -1;
         distributionHard = new ArrayList<>();
-        distributionSoft = new ArrayList<>();
+
         distributionSoft = new ArrayList<>();
         student = new ArrayList<>();
         swap = 0;
@@ -1459,26 +1852,6 @@ public class Class implements Cloneable {
 
     }
 
-
-    public void cekBatasanSama() {
-        for (int ii = 0; ii < waktuSama.size(); ii++) {
-            boolean t = false;
-
-            if (distributionHard.size() == waktuSama.get(ii).distributionHard.size()) {
-                t = true;
-                for (int j = 0; j < distributionHard.size(); j++) {
-                    if (!distributionHard.contains(waktuSama.get(ii).distributionHard.get(j))) {
-                        t = false;
-                        break;
-                    }
-                }
-            }
-
-            if (t) {
-                batasanSama.add(waktuSama.get(ii));
-            }
-        }
-    }
 
     public boolean cekWS(PTimes a, PTimes b) {
 
@@ -5098,6 +5471,8 @@ public class Class implements Cloneable {
             t = cekSameAttendees(getId(), week, d, start, start + length, room, a, roomKosong);
             if (!t) t2 = false;
 
+
+
         }
         if (!t) {
             //System.out.println("SA 1");
@@ -5198,14 +5573,6 @@ public class Class implements Cloneable {
         }
 
 
-        if (!t) {
-            //  System.out.println("15");
-            //return t;
-        }
-
-//        if(!t){
-//            System.out.println("gagal overlap");
-//        }
         return t2;
     }
 
@@ -5432,7 +5799,7 @@ public class Class implements Cloneable {
     }
 
 
-    public boolean mutate() {
+    public boolean mutate(ArrayList<Integer> jadwal[][], ArrayList<Integer> jadwalIndex[][]) {
 
         int T = getTimeDipakai();
         int R = getRoomDipakai();
@@ -5453,11 +5820,11 @@ public class Class implements Cloneable {
 
         Random rand = new Random();
 
-        // System.out.println(combinationTimeRoom.size()-hapusJadwal.size());
         if (combinationTimeRoom.size() - hapusJadwal.size() == 1) {
-//            System.out.println("Cuma satu");
+
             return false;
         }
+
         int x;
         while (true) {
 
@@ -5492,7 +5859,7 @@ public class Class implements Cloneable {
         boolean t = false;
         if (t2) {
             if (!roomKosong) {
-                t = ubah2(week, day, start, length, r, getCombinationIndex(x), t2);
+                t = ubah2(week, day, start, length, r, getCombinationIndex(x), t2,jadwal,jadwalIndex);
 
             } else {
                 t = true;
@@ -5553,306 +5920,6 @@ public class Class implements Cloneable {
 
     }
 
-    public boolean cobaJadwal() {
-        makeCombination();
-        int length1 = combinationTimeRoom.size();
-        for (int i = 0; i < hapusJadwal.size(); i++) {
-            combinationTimeRoom.set(hapusJadwal.get(i), null);
-        }
-
-        konflik = new ArrayList[length1];
-        konflik2 = new ArrayList[length1];
-        for (int x = 0; x < konflik.length; x++) {          //inisailisasi array untuk konflik
-            konflik[x] = new ArrayList<Integer>();
-            konflik2[x] = new ArrayList<Integer>();
-        }
-        Random rand = new Random();
-
-        boolean t = false;
-        boolean t2 = false;
-
-        System.out.println("total combinasi " + (length1 - hapusJadwal.size()));
-
-        System.out.println("time " + time.size() + " room " + room.size());
-        System.out.println("syarat week " + syaratWeek);
-        for (int q = 0; q < length1; q++) {
-
-
-            //System.out.println(q+" "+roomKosong);
-            if (timeDipakai > -1) {
-                break;
-            }
-            t = true;
-            t2 = true;
-
-
-            int xx = rand.nextInt(combinationTimeRoom.size());
-            if (q + 2 > length1) System.out.println(combinationTimeRoom.size());
-
-            if (combinationTimeRoom.get(xx) == null) {
-                //  combinationTimeRoom.remove(xx);
-                t = false;
-                if (id == 425) System.out.println("roomunavailabel");
-
-            } else {
-
-                int a = getCombinationTime(xx);
-
-                int b = getCombinationRoom(xx);
-
-                int r = -1;
-                if (b >= 0) {
-                    r = getRoom(b).getId();
-                }
-
-
-                PTimes time = getTime(a);
-                setRoomDipakai(b);
-                setTimeDipakai(a);
-
-                String week = time.getWeeks();
-                String day = time.getDays();
-                int start = time.getStart();
-                int length = time.getLength();
-
-                //cek distribution
-
-                boolean t3 = true;
-
-                if (adaSameDay && !syaratHari.equals("")) {
-                    if (id == 425) System.out.println(syaratHari + " " + day);
-                    if (!cekSameDay(syaratHari, day)) t3 = false;
-                }
-
-                if (adasameWeek && !syaratWeek.equals("")) {
-                    if (id == 425) System.out.println(syaratWeek + " " + week);
-                    if (!cekSameDay(syaratWeek, week)) t3 = false;
-                }
-
-
-                if (adaSameTime && syaratStart > -1) {
-                    if (id == 425)
-                        System.out.println(syaratStart + " " + syaratEnd + " " + start + " " + start + length);
-                    if (!cekST(syaratStart, syaratEnd, start, start + length)) t3 = false;
-                }
-
-                if (adaSameRoom && syaratRoom > -1) {
-//                    if (id == 425)
-//                        System.out.println(syaratStart + " " + syaratEnd + " " + start + " " + start + length);
-                    if (syaratRoom != r) t3 = false;
-                }
-
-
-                if (id == 425) System.out.println("t3 " + t3);
-                if (id == 580) System.out.println(t3);
-                if (t3) {
-                    t2 = cekHardConstrain(week, day, start, length, r, getCombinationIndex(xx));
-//                    if(id==580)System.out.println(t2);
-                    if (id == 736) System.out.println("t2 " + t2);
-                    if (!t2) {
-
-                        if (konflik[getCombinationIndex(xx)].size() == 0) {
-                            hapusJadwal.add(getCombinationIndex(xx));
-                            System.out.println("kena....................................................................");
-                            if (id == 736) System.exit(0);
-                        }
-
-                        setRoomDipakai(-1);
-                        setTimeDipakai(-1);
-                    }
-
-                    if (!roomKosong) {
-                        t = ubah(week, day, start, length, r, getCombinationIndex(xx), t2);
-                        if (id == 736) System.out.println("t " + t);
-
-                        if (t) {
-
-                            isi(week, day, start, length, r, a, t2);
-
-                        } else {
-
-                            if (konflik2[getCombinationIndex(xx)].size() == 0 && t2) {
-                                hapusJadwal.add(getCombinationIndex(xx));
-                                System.out.println("kena2....................................................................");
-                                //if(id==736)System.exit(0);
-                            }
-
-                            setRoomDipakai(-1);
-                            setTimeDipakai(-1);
-                        }
-
-
-                    } else {
-                        if (!t2) t = false;
-                    }
-                } else {
-                    t = false;
-                    setRoomDipakai(-1);
-                    setTimeDipakai(-1);
-                }
-
-
-                // System.out.println(t+" "+t2);
-
-            }
-            if (timeDipakai == -1) {
-                combinationTimeRoom.remove(xx);
-            }
-        }
-
-        if (getTimeDipakai() == -1) {
-
-            System.out.println("gagal " + getId());
-
-
-            return false;
-
-        }
-        System.out.println("berhasil " + getId());
-        int time = getTimeDipakai();
-        String day;
-        int start;
-        String week;
-
-        int length = getTime(time).getLength();
-
-        week = getTime(time).getWeeks();
-        day = getTime(time).getDays();
-        start = getTime(time).getStart();
-
-
-        int room = getRoomDipakai();
-        int room2;
-        if (room < 0) {
-            room2 = -1;
-        } else {
-            room2 = getRoom(room).getId();
-        }
-
-        if (sameDay2.size() > 0 && !adaSameDay) {
-            for (int i = 0; i < sameDay2.size(); i++) {
-                sameDay2.get(i).syaratHari = day;
-
-
-                int time2 = sameDay2.get(i).getTimeDipakai();
-
-                if (time2 > -1) {
-                    String day2 = sameDay2.get(i).getTime(time2).getDays();
-
-                    if (!cekSameDay(day2, day)) {
-                        sameDay2.get(i).setTimeDipakai(-1);
-                        hapus(sameDay2.get(i).getIndex(), true);
-                    }
-                }
-
-
-            }
-        }
-        if (sameWeek2.size() > 0 && !adasameWeek) {
-            for (int i = 0; i < sameWeek2.size(); i++) {
-                sameWeek2.get(i).syaratWeek = week;
-
-
-                int time2 = sameWeek2.get(i).getTimeDipakai();
-
-                if (time2 > -1) {
-                    String day2 = sameWeek2.get(i).getTime(time2).getWeeks();
-
-                    if (!cekSameDay(day2, week)) {
-                        sameWeek2.get(i).setTimeDipakai(-1);
-                        hapus(sameWeek2.get(i).getIndex(), true);
-                    }
-                }
-
-
-            }
-        }
-
-        if (sameTime2.size() > 0 && !adaSameTime) {
-            for (int i = 0; i < sameTime2.size(); i++) {
-                sameTime2.get(i).syaratStart = start;
-                sameTime2.get(i).syaratEnd = start + length;
-
-                int time2 = sameTime2.get(i).getTimeDipakai();
-
-                if (time2 > -1) {
-                    int start2 = sameTime2.get(i).getTime(time2).getStart();
-                    int end2 = sameTime2.get(i).getTime(time2).getLength() + start2;
-
-                    if (!cekST(start, start + length, start2, end2)) {
-                        sameTime2.get(i).setTimeDipakai(-1);
-
-                        hapus(sameTime2.get(i).getIndex(), true);
-                    }
-                }
-
-            }
-        }
-
-
-        if (sameRoom2.size() > 0 && !adaSameRoom) {
-            for (int i = 0; i < sameRoom2.size(); i++) {
-                sameRoom2.get(i).syaratRoom = room2;
-
-
-                int r = sameRoom2.get(i).getRoomDipakai();
-
-                if (r > -1) {
-                    int r2 = sameRoom2.get(i).getRoom(sameRoom2.get(i).getRoomDipakai()).getId();
-
-                    if (r2 != room2) {
-                        sameRoom2.get(i).setTimeDipakai(-1);
-                        hapus(sameRoom2.get(i).getIndex(), true);
-                    }
-                }
-
-
-            }
-        }
-
-
-        System.out.println("time dipakai " + day + " " + start + " " + room2);
-        return true;
-    }
-
-    public void isi(String week, String day, int start, int length, int room, int a, boolean b) {
-        //boolean t = b;
-        for (int j = 0; j < week.length(); j++) {
-
-            String test = week.substring(j, j + 1);
-
-            if (test.equals("1")) {
-                for (int k = 0; k < day.length(); k++) {
-
-                    String test2 = day.substring(k, k + 1);
-
-                    if (test2.equals("1")) {
-                        for (int p = 0; p < length; p++) {
-
-
-                            if (jadwal[(((j * 7) + k) * slot) + start - 1 + p][room - 1].size() == 0) {
-
-                                jadwal[(((j * 7) + k) * slot) + start - 1 + p][room - 1].add(getId());
-                                jadwalIndex[(((j * 7) + k) * slot) + start - 1 + p][room - 1].add(getIndex());
-
-                            } else {
-                                System.out.println(jadwal[(((j * 7) + k) * slot) + start - 1 + p][room - 1].get(0) + " " + jadwal[(((j * 7) + k) * slot) + start - 1 + p][room - 1].size() + " " + getIndex());
-                                System.out.println("EROR.................................................................................");
-                                System.exit(0);
-                            }
-
-
-                        }
-
-                    }
-
-                }
-            }
-
-        }
-
-
-    }
 
     public void isi(String week, String day, int start, int length, int room, int a, boolean b, ArrayList<Integer> jad[][], ArrayList<Integer> ji[][]) {
         //boolean t = b;
@@ -5894,7 +5961,7 @@ public class Class implements Cloneable {
     }
 
 
-    public void hapusJadwal(int T, int R) {
+    public void hapusJadwal(int T, int R,ArrayList<Integer> jadwal[][], ArrayList<Integer> jadwalIndex[][]) {
 
         String week = this.time.get(T).getWeeks();
         String day = time.get(T).getDays();
@@ -5932,7 +5999,7 @@ public class Class implements Cloneable {
     }
 
 
-    public boolean ubah(String week, String day, int start, int length, int room, int a, boolean b) {
+    public boolean ubah(String week, String day, int start, int length, int room, int a, boolean b,ArrayList<Integer> jadwal[][], ArrayList<Integer> jadwalIndex[][]) {
         boolean t = b;
         for (int j = 0; j < week.length(); j++) {
             //nanti harus di cek pada dataset yang main week
@@ -5983,7 +6050,7 @@ public class Class implements Cloneable {
 
     }
 
-    public boolean ubah2(String week, String day, int start, int length, int room, int a, boolean b) {
+    public boolean ubah2(String week, String day, int start, int length, int room, int a, boolean b,ArrayList<Integer> jadwal[][], ArrayList<Integer> jadwalIndex[][]) {
         boolean t = b;
         for (int j = 0; j < week.length(); j++) {
             //nanti harus di cek pada dataset yang main week
@@ -6125,13 +6192,7 @@ public class Class implements Cloneable {
         return distributionHard.get(a);
     }
 
-    public void addDistributionSoft(Distribution a) {
-        distributionSoft.add(a);
-    }
 
-    public Distribution getDistributionSoft(int a) {
-        return distributionSoft.get(a);
-    }
 
     public int distributionHardLength() {
         return distributionHard.size();

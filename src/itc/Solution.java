@@ -2,6 +2,7 @@ package itc;
 
 import course.Class;
 import course.Course;
+import studentDistribution.Distribution;
 import studentDistribution.Student;
 
 import java.io.FileWriter;
@@ -645,9 +646,9 @@ public class Solution {
             x = rand.nextInt(2);
         }
 
-
+        x=0;
         if (x == 0) {
-            t = kelas.get(ubahSolusi).mutate();
+            t = kelas.get(ubahSolusi).mutate(jadwal,jadwalIndex);
         } else if (x == 1) {
             t = kelas.get(ubahSolusi).swap();
 
@@ -662,7 +663,7 @@ public class Solution {
                 // System.out.println(fs);
 
                 if (room > -1) {
-                    kelas.get(ubahSolusi).hapusJadwal(time, room);
+                    kelas.get(ubahSolusi).hapusJadwal(time, room,jadwal,jadwalIndex);
 
                     int r1 = kelas.get(ubahSolusi).getRoom(kelas.get(ubahSolusi).getRoomDipakai()).getId();
 
@@ -672,7 +673,7 @@ public class Solution {
                     int start = kelas.get(ubahSolusi).time.get(time2).getStart();
                     int length = kelas.get(ubahSolusi).time.get(time2).getLength();
 
-                    kelas.get(ubahSolusi).isi(week, day, start, length, r1, 0, true);
+                    kelas.get(ubahSolusi).isi(week, day, start, length, r1, 0, true,jadwal,jadwalIndex);
                 }
 
             } else if (x == 1) {
@@ -684,8 +685,8 @@ public class Solution {
 //                hapus(ubahSolusi, false);
 //                hapus(ubahSolusi2, false);
 
-                kelas.get(ubahSolusi).hapusJadwal(time, room);
-                kelas.get(ubahSolusi).hapusJadwal(Times2, Rooms2);
+                kelas.get(ubahSolusi).hapusJadwal(time, room,jadwal,jadwalIndex);
+                kelas.get(ubahSolusi).hapusJadwal(Times2, Rooms2,jadwal,jadwalIndex);
 
 
                 if (!kelas.get(ubahSolusi).roomKosong) {
@@ -699,7 +700,7 @@ public class Solution {
                     int length = kelas.get(ubahSolusi).time.get(time2).getLength();
 
 
-                    kelas.get(ubahSolusi).isi(week, day, start, length, r1, 0, true);
+                    kelas.get(ubahSolusi).isi(week, day, start, length, r1, 0, true,jadwal,jadwalIndex);
                 }
                 if (!kelas.get(ubahSolusi2).roomKosong) {
 
@@ -712,7 +713,7 @@ public class Solution {
                     int length = kelas.get(ubahSolusi2).time.get(time2).getLength();
 
 
-                    kelas.get(ubahSolusi2).isi(week, day, start, length, r1, 0, true);
+                    kelas.get(ubahSolusi2).isi(week, day, start, length, r1, 0, true,jadwal,jadwalIndex);
                 }
             }
             return true;
@@ -741,8 +742,9 @@ public class Solution {
 
         if(x==1)x=0;
 
+        x=0;
         if (x == 0) {
-            t = kelas.get(ubahSolusi).mutate();
+            t = kelas.get(ubahSolusi).mutate(jadwal,jadwalIndex);
         } else if (x == 1) {
 //            t = kelas.get(ubahSolusi).localSearch();
         } else if (x == 2) {
@@ -768,8 +770,8 @@ public class Solution {
 
 
                     solusiDipakai(2);
-                    kelas.get(ubahSolusi).hapusJadwal(time, room);
-                    kelas.get(ubahSolusi2).hapusJadwal(Times2, Rooms2);
+                    kelas.get(ubahSolusi).hapusJadwal(time, room,jadwal,jadwalIndex);
+                    kelas.get(ubahSolusi2).hapusJadwal(Times2, Rooms2,jadwal,jadwalIndex);
 
 
                     if (!kelas.get(ubahSolusi).roomKosong) {
@@ -783,7 +785,7 @@ public class Solution {
                         int length = kelas.get(ubahSolusi).time.get(time2).getLength();
 
 
-                        kelas.get(ubahSolusi).isi(week, day, start, length, r1, 0, true);
+                        kelas.get(ubahSolusi).isi(week, day, start, length, r1, 0, true,jadwal,jadwalIndex);
                     }
                     if (!kelas.get(ubahSolusi2).roomKosong) {
 
@@ -796,13 +798,13 @@ public class Solution {
                         int length = kelas.get(ubahSolusi2).time.get(time2).getLength();
 
 
-                        kelas.get(ubahSolusi2).isi(week, day, start, length, r1, 0, true);
+                        kelas.get(ubahSolusi2).isi(week, day, start, length, r1, 0, true,jadwal,jadwalIndex);
                     }
                 } else {
                     solusiDipakai(0);
 
                     if (room > -1) {
-                        kelas.get(ubahSolusi).hapusJadwal(time, room);
+                        kelas.get(ubahSolusi).hapusJadwal(time, room,jadwal,jadwalIndex);
                         //hapus(ubahSolusi, false);
                         int r1 = kelas.get(ubahSolusi).getRoom(kelas.get(ubahSolusi).getRoomDipakai()).getId();
 
@@ -812,7 +814,7 @@ public class Solution {
                         int start = kelas.get(ubahSolusi).time.get(time2).getStart();
                         int length = kelas.get(ubahSolusi).time.get(time2).getLength();
 
-                        kelas.get(ubahSolusi).isi(week, day, start, length, r1, 0, true);
+                        kelas.get(ubahSolusi).isi(week, day, start, length, r1, 0, true,jadwal,jadwalIndex);
                     }
                 }
                 fs = fsBaru;
@@ -1756,23 +1758,17 @@ public class Solution {
     public  int optimize(double eks) throws CloneNotSupportedException {
         System.out.println("mulai optimasi");
 
+
+
+
         fs = calculatePenalty(0);
         fsBest = fs;
-
-
-        double a = 2;
-
-
-        int aaa = 0;
 
 
         notImprove = 0;
 
 
         double ii = 50000;
-
-
-
 
         for (int i = 0; i < ii; i++) {
 
@@ -1816,11 +1812,13 @@ public class Solution {
                 double p2 = rand.nextDouble();
 
                 if(p2<0.5){
-                    exploidClass(time,room);
+
+                    System.out.println("masuk eksploid class");
+                   exploidClass(time,room);
 
                 }
                 else{
-
+                    System.out.println("masuk eksplorasi class");
                     exploreClass(room,time);
 
                 }
@@ -1839,6 +1837,11 @@ public class Solution {
 
     public Solution(List<Class> a, Student[] b, List<Course> c) throws CloneNotSupportedException {
 
+
+        student=b;
+        courseBanyakKelas=c;
+
+
         kelas=new ArrayList<>();
 
         for(int i=0;i<a.size();i++){
@@ -1847,43 +1850,72 @@ public class Solution {
 
         }
 
-
         for(int i=0;i<kelas.size();i++){
 
-            kelas.get(i).rewriteStudent();
+            kelas.get(i).rewriteDistribution(kelas);
 
         }
-
-        student=new Student[b.length];
-
-        student=b.clone();
-
-        for(int i=0;i<student.length;i++){
-
-            student[i].rewriteKelas(kelas);
-
-        }
-
-        courseBanyakKelas=new ArrayList<>();
-
-        for(int i=0;i<c.size();i++){
-
-            courseBanyakKelas.add((Course) c.get(i).clone());
-
-        }
-
-        for(int i=0;i<courseBanyakKelas.size();i++){
-
-            courseBanyakKelas.get(i).rewriteKelas(kelas);
-            courseBanyakKelas.get(i).rewriteStudent(student);
-
-        }
+//
+//
+//
+//        for(int i=0;i<kelas.size();i++){
+//
+//            kelas.get(i).rewriteStudent();
+//
+//        }
+//
+//        student=new Student[b.length];
+//
+//        student=b.clone();
+//
+//        for(int i=0;i<student.length;i++){
+//
+//            student[i].rewriteKelas(kelas);
+//
+//        }
+//
+//        courseBanyakKelas=new ArrayList<>();
+//
+//        for(int i=0;i<c.size();i++){
+//
+//            courseBanyakKelas.add((Course) c.get(i).clone());
+//
+//        }
+//
+//        for(int i=0;i<courseBanyakKelas.size();i++){
+//
+//            courseBanyakKelas.get(i).rewriteKelas(kelas);
+//            courseBanyakKelas.get(i).rewriteStudent(student);
+//
+//        }
 
 
         jadwal = new ArrayList[slot * nrDays * nrWeeks][listRoom[listRoom.length - 1].getId()];
         jadwalIndex = new ArrayList[slot * nrDays * nrWeeks][listRoom[listRoom.length - 1].getId()];
 
+
+
+        for (int i = 0; i < jadwal.length; i++) {
+            for (int j = 0; j < jadwal[i].length; j++) {
+                jadwal[i][j] = new ArrayList<Integer>();
+                jadwalIndex[i][j] = new ArrayList<Integer>();
+            }
+
+        }
+
         petakanJadwal();
+
+
+
+
+
+
+
+    }
+
+    public void rewriteDistributionConstraint(){
+
+
 
 
 

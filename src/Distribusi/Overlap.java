@@ -9,7 +9,7 @@ import java.util.List;
 import static itc.ITC.konflik;
 import static itc.ITC.sortedClass;
 
-public class Overlap {
+public class Overlap implements Cloneable{
     public List<Class> kelas;
 
     public List<Integer> kelasId;
@@ -36,6 +36,30 @@ public class Overlap {
         }
     }
 
+    public Object clone() throws
+            CloneNotSupportedException {
+        return super.clone();
+    }
+
+    public void rewritekelas(List<Class> a) throws CloneNotSupportedException {
+        List<Class> k=new ArrayList<>();
+
+
+        for(int i=0;i<a.size();i++){
+
+            for(int j=0;j<kelas.size();j++){
+                if(kelas.get(j).id==a.get(i).id){
+                    k.add(a.get(i));
+                    break;
+                }
+            }
+
+
+        }
+        kelas=k;
+
+
+    }
     public boolean cekKelas(int a){
         for(int i=0;i<kelas.size();i++){
             if(kelas.get(i).getId()==a){

@@ -10,7 +10,7 @@ import static itc.GetInput.nrWeeks;
 import static itc.ITC.konflik;
 import static itc.ITC.sortedClass;
 
-public class Precedence {
+public class Precedence implements Cloneable{
 
 
 
@@ -67,6 +67,30 @@ public class Precedence {
 
 
 
+    public Object clone() throws
+            CloneNotSupportedException {
+        return super.clone();
+    }
+
+    public void rewritekelas(List<Class> a) throws CloneNotSupportedException {
+        List<Class> k=new ArrayList<>();
+
+
+        for(int i=0;i<a.size();i++){
+
+            for(int j=0;j<kelas.size();j++){
+                if(kelas.get(j).id==a.get(i).id){
+                    k.add(a.get(i));
+                    break;
+                }
+            }
+
+
+        }
+        kelas=k;
+
+
+    }
     public boolean deletePrecedenceSebelum(String week, String day, int start,int id){
         ;
         boolean hasil=false;

@@ -9,7 +9,7 @@ import java.util.List;
 import static itc.ITC.konflik;
 import static itc.ITC.sortedClass;
 
-public class DifferentTime {
+public class DifferentTime implements Cloneable{
 
     public List<Class> kelas;
     int penalty;
@@ -21,6 +21,32 @@ public class DifferentTime {
     public DifferentTime() {
         kelasId=new ArrayList<>();
         kelas = new ArrayList<>();
+
+    }
+
+
+    public Object clone() throws
+            CloneNotSupportedException {
+        return super.clone();
+    }
+
+    public void rewritekelas(List<Class> a) throws CloneNotSupportedException {
+        List<Class> k=new ArrayList<>();
+
+
+        for(int i=0;i<a.size();i++){
+
+            for(int j=0;j<kelas.size();j++){
+                if(kelas.get(j).id==a.get(i).id){
+                    k.add(a.get(i));
+                    break;
+                }
+            }
+
+
+        }
+        kelas=k;
+
 
     }
 

@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class MaxDays {
+public class MaxDays implements Cloneable{
     public List<Class> kelas;
     int limit;
     int penalty;
@@ -53,6 +53,32 @@ public class MaxDays {
         return false;
     }
 
+
+
+    public Object clone() throws
+            CloneNotSupportedException {
+        return super.clone();
+    }
+
+    public void rewritekelas(List<Class> a) throws CloneNotSupportedException {
+        List<Class> k=new ArrayList<>();
+
+
+        for(int i=0;i<a.size();i++){
+
+            for(int j=0;j<kelas.size();j++){
+                if(kelas.get(j).id==a.get(i).id){
+                    k.add(a.get(i));
+                    break;
+                }
+            }
+
+
+        }
+        kelas=k;
+
+
+    }
     public MaxDays(int a) {
 
         kelas = new ArrayList<>();

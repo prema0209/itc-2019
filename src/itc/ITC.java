@@ -172,14 +172,15 @@ public class ITC {
         if (baca == 1) {
             System.out.println("mulai create initial");
 
-            createInitial();
+
         }
 
 
         if (baca == 2) {
             System.gc();
             GetSolusiAwal b = new GetSolusiAwal();
-            solusi=new Solution[50];
+            solusi=new Solution[1];
+
 
 
             for (int i = 0; i < courseBanyakKelas.size(); i++) {
@@ -199,7 +200,11 @@ public class ITC {
 
                 solusi[i]=new Solution(sortedClass,listStudent,courseBanyakKelas);
 
+                System.out.println("selesai solusi ke "+i);
             }
+
+
+            System.out.println("tahap inisiasi solusi awal selesai");
 
 
 
@@ -207,17 +212,13 @@ public class ITC {
 
             double eks = 0.5;
 
-            bestSolusi = new ArrayList<>();
+            solusi[0].optimize(0);
 
-
-            //fsBestGlobal = calculatePenalty(0);
-
-
-            for(int i=0;i<solusi.length;i++){
-
-                solusi[i].optimize(0);
-
-            }
+//            for(int i=0;i<solusi.length;i++){
+//
+//                solusi[i].optimize(0);
+//
+//            }
 
 
 
@@ -868,153 +869,7 @@ public class ITC {
     }
 
 
-    public static void createInitial() {
-        //menambakan student ke course yang diambil
-        addStudent();
-        System.out.println("selesai add student");
 
-        for (int i = 0; i < sortedClass.size(); i++) {
-
-            sortedClass.get(i).setIndex(i);
-
-        }
-
-        boolean t = true;
-
-        for (int i = 0; i < sortedClass.size(); i++) {
-
-            if (i == 0) {
-                for (int j = 0; j < sortedClass.size(); j++) {
-                    if (sortedClass.get(j).sameTime2.size() > 0)
-                        sortedClass.get(j).adaSameTime = true;
-
-                    if (sortedClass.get(j).sameDay2.size() > 0)
-                        sortedClass.get(j).adaSameDay = true;
-
-                    if (sortedClass.get(j).sameWeek2.size() > 0)
-                        sortedClass.get(j).adasameWeek = true;
-
-                    if (sortedClass.get(j).sameRoom2.size() > 0)
-                        sortedClass.get(j).adaSameRoom = true;
-                }
-
-                for (int j = 0; j < sortedClass.size(); j++) {
-                    sortedClass.get(j).makeRandom();
-                }
-
-            }
-
-            if (sortedClass.get(i).getTimeDipakai() < 0) {  //mengecek apakah sudah dijadwalkan atau belum, jika belum maka nilainya -1
-
-
-                boolean test = sortedClass.get(i).cobaJadwal();     //mencoba memasukan jadwal
-
-                if (!test) {
-
-                    boolean c = false;
-                    boolean d = false;
-
-                    for (int j = 0; j < konflik2.length; j++) {
-                        if (konflik2[j].size() > 0) {
-                            c = true;
-
-
-                        }
-                        if (konflik[j].size() > 0) {
-                            d = true;
-
-
-                        }
-                    }
-                    Random rand = new Random();
-                    int s = rand.nextInt(10);
-
-                    ArrayList<Integer>[] konflikDipilih;
-
-                    //  if(!c && !d)System.exit(0);
-                    System.out.println(c);
-                    if ((c && s > 5) || !d) {
-                        System.out.println("Batasan jadwal ");
-                        konflikDipilih = konflik2;
-
-                    } else {
-                        konflikDipilih = konflik;
-                        System.out.println("Batasan distribusi ");
-                    }
-
-
-                    int n = konflikDipilih.length;
-                    for (int j = 0; j < n - 1; j++) {
-                        for (int k = 0; k < n - j - 1; k++) {
-                            if (konflikDipilih[k].size() < konflikDipilih[k + 1].size()) {
-                                // swap temp and arr[i]a
-                                ArrayList temp = konflikDipilih[k];
-                                konflikDipilih[k] = konflikDipilih[k + 1];
-                                konflikDipilih[k + 1] = temp;
-                            }
-
-                        }
-                    }
-
-
-                    int r = 0;
-
-                    //mencari panjang konflik
-
-
-                    for (int y = 0; y < konflikDipilih.length; y++) {
-                        if (konflikDipilih[y].size() == 0) {
-                            r = y;
-                            break;
-
-                        }
-                    }
-
-
-                    int ra = 0;
-
-                    if (r != 0) {
-                        ra = rand.nextInt(r);
-                    } else {
-                        ra = rand.nextInt(konflikDipilih.length);
-
-                    }
-
-
-//                    System.out.println("ra "+ra);
-
-                    for (int x = 0; x < konflikDipilih[ra].size(); x++) {
-                        hapus(konflikDipilih[ra].get(x), true);
-                    }
-
-
-                    if (c || d)
-                        i--;
-                    t = false;
-
-                }
-
-            }
-
-            if (i == sortedClass.size() - 1) {  //ulang dari i ke 0 jika masih tetap belum feasibel
-
-                t = true;
-                for (int j = 0; j < sortedClass.size(); j++) {
-                    if (sortedClass.get(j).getTimeDipakai() == -1) {
-                        t = false;
-                    }
-                }
-                if (!t) {
-                    i = -1;
-
-
-                }
-
-            }
-
-        }
-
-    }
 
     public static void hapus(int i, boolean t) {
         if (t) {

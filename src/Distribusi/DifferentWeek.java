@@ -9,7 +9,7 @@ import java.util.List;
 import static itc.ITC.konflik;
 import static itc.ITC.sortedClass;
 
-public class DifferentWeek {
+public class DifferentWeek implements Cloneable{
 
     public List<Class> kelas;
 
@@ -17,6 +17,32 @@ public class DifferentWeek {
     public int penaltyTerakhir;
     public int penaltyCadangan;
     public List<Integer> kelasId;
+
+
+    public Object clone() throws
+            CloneNotSupportedException {
+        return super.clone();
+    }
+
+    public void rewritekelas(List<Class> a) throws CloneNotSupportedException {
+        List<Class> k=new ArrayList<>();
+
+
+        for(int i=0;i<a.size();i++){
+
+            for(int j=0;j<kelas.size();j++){
+                if(kelas.get(j).id==a.get(i).id){
+                    k.add(a.get(i));
+                    break;
+                }
+            }
+
+
+        }
+        kelas=k;
+
+
+    }
 
     public DifferentWeek() {
 
