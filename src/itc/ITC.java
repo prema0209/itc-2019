@@ -146,7 +146,7 @@ public class ITC {
         System.out.println("masukan Perintah :");
         int baca = sc.nextInt();
 
-        I = 150000;
+        I = 500000;
         // I=I/2;
         f = new int[25];
 
@@ -167,7 +167,7 @@ public class ITC {
 //        for(int w=0;w<nama.length;w++) {
 
         long startTime = 0;
-        namafile = "yach-fal17";
+        namafile = "lums-spr18";
         //myWriter = new FileWriter("C:/Users/wekan/Documents/tesis/dataset/Solusi Awal/" + namafile + "/"+pp+".xml");
         //myWriter = new FileWriter("C:/Users/wekan/OneDrive/Documents/tesis/dataset/" + namafile + ".xml");
         myWriter = new FileWriter(path + "hasil/" + namafile + "_" + pp + ".xml");
@@ -470,7 +470,15 @@ public static int optimize(double eks) throws CloneNotSupportedException {
 
     double kx= (I<ii)?ii:I;
 
+    List<Integer> indexKelas=new ArrayList<>();
+
+    for(int i=0;i<sortedClass.size();i++){
+        indexKelas.add(i);
+    }
+
     for (int i = 0; i < ii; i++) {
+
+
 
 
 //            long e = System.nanoTime();
@@ -544,8 +552,20 @@ public static int optimize(double eks) throws CloneNotSupportedException {
 
 
 
+        int xx=rand.nextInt(indexKelas.size());
 
-        ubahSolusi = rand.nextInt(sortedClass.size());
+        ubahSolusi = xx;
+        indexKelas.remove(xx);
+
+
+
+        if(indexKelas.size()==0){
+            indexKelas=new ArrayList<>();
+
+            for(int kj=0;kj<sortedClass.size();kj++){
+                indexKelas.add(kj);
+            }
+        }
 
         //ubahSolusi = q;
 
