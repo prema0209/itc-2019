@@ -1795,6 +1795,14 @@ public class Solution {
         fsBest = fs;
 
 
+
+
+        List<Integer> indexKelas=new ArrayList<>();
+
+        for(int i=0;i<kelas.size();i++){
+            indexKelas.add(i);
+        }
+
         notImprove = 0;
 
 
@@ -1806,7 +1814,12 @@ public class Solution {
             Random rand = new Random();
 
 
-            ubahSolusi = rand.nextInt(kelas.size());
+            int r=rand.nextInt(indexKelas.size());
+            ubahSolusi = indexKelas.get(r);
+
+            indexKelas.remove(r);
+
+
 
 
             int time = kelas.get(ubahSolusi).getTimeDipakai();
@@ -1857,9 +1870,16 @@ public class Solution {
 
             }
 
+            if(indexKelas.size()==0){
+                indexKelas=new ArrayList<>();
+
+                for(int kj=0;kj<kelas.size();kj++){
+                    indexKelas.add(kj);
+                }
+            }
 
         }
-
+        System.out.println("fs best = "+fs);
         System.out.println("hasil : " + calculatePenalty(0));
 
         return 0;
@@ -1887,39 +1907,39 @@ public class Solution {
         }
 
         rewriteSoftDistribution(kelas);
-//
-//
-//
-//        for(int i=0;i<kelas.size();i++){
-//
-//            kelas.get(i).rewriteStudent();
-//
-//        }
-//
-//        student=new Student[b.length];
-//
-//        student=b.clone();
-//
-//        for(int i=0;i<student.length;i++){
-//
-//            student[i].rewriteKelas(kelas);
-//
-//        }
-//
-//        courseBanyakKelas=new ArrayList<>();
-//
-//        for(int i=0;i<c.size();i++){
-//
-//            courseBanyakKelas.add((Course) c.get(i).clone());
-//
-//        }
-//
-//        for(int i=0;i<courseBanyakKelas.size();i++){
-//
-//            courseBanyakKelas.get(i).rewriteKelas(kelas);
-//            courseBanyakKelas.get(i).rewriteStudent(student);
-//
-//        }
+
+
+
+        for(int i=0;i<kelas.size();i++){
+
+            kelas.get(i).rewriteStudent();
+
+        }
+
+        student=new Student[b.length];
+
+        student=b.clone();
+
+        for(int i=0;i<student.length;i++){
+
+            student[i].rewriteKelas(kelas);
+
+        }
+
+        courseBanyakKelas=new ArrayList<>();
+
+        for(int i=0;i<c.size();i++){
+
+            courseBanyakKelas.add((Course) c.get(i).clone());
+
+        }
+
+        for(int i=0;i<courseBanyakKelas.size();i++){
+
+            courseBanyakKelas.get(i).rewriteKelas(kelas);
+            courseBanyakKelas.get(i).rewriteStudent(student);
+
+        }
 
 
         jadwal = new ArrayList[slot * nrDays * nrWeeks][listRoom[listRoom.length - 1].getId()];

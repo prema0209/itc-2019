@@ -131,7 +131,7 @@ public class ITC {
 //        for(int w=0;w<nama.length;w++) {
 
         long startTime = 0;
-        namafile = "lums-spr18";
+        namafile = "yach-fal17";
         //myWriter = new FileWriter("C:/Users/wekan/Documents/tesis/dataset/Solusi Awal/" + namafile + "/"+pp+".xml");
         //myWriter = new FileWriter("C:/Users/wekan/OneDrive/Documents/tesis/dataset/" + namafile + ".xml");
 
@@ -179,7 +179,7 @@ public class ITC {
         if (baca == 2) {
             System.gc();
             GetSolusiAwal b = new GetSolusiAwal();
-            solusi=new Solution[5];
+            solusi=new Solution[1];
 
 
 
