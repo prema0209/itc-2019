@@ -86,7 +86,7 @@ public class Subpart {
 
 
 
-              System.out.println(id+" "+students.size()+" "+kelas.size());
+              //System.out.println(id+" "+students.size()+" "+kelas.size());
         boolean t=true;
         int x=0;
               if(students.size()==0)t=false;

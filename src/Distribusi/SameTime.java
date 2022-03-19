@@ -88,7 +88,7 @@ public class SameTime {
 
             }
             if(!test){
-                System.out.println(kelas.get(j).getId());
+                //System.out.println(kelas.get(j).getId());
                 return false;
             }
 

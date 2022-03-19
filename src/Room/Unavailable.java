@@ -57,7 +57,7 @@ public class Unavailable {
     }
    
     public void print(){
-        System.out.println(week+" "+day+" "+start+" "+length);
+        //System.out.println(week+" "+day+" "+start+" "+length);
         
     }
 }

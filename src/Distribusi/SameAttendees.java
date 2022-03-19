@@ -518,9 +518,7 @@ public class SameAttendees {
 
                     }
 
-                    if(id==1246){
-                        System.out.println(start+" "+start2+" "+roomTravel+" "+end+" "+end2);
-                    }
+
 
                     boolean coba = ((end + roomTravel) <= start2) || ((end2 + roomTravel) <= start) || (!d || !w);
 
@@ -530,8 +528,8 @@ public class SameAttendees {
 //                    }
                     if (!coba) {
                         if(id==1246){
-                            System.out.println("ini masalah "+kelas.get(i).getId());
-                            System.out.println((week2+" "+day2+" "+start2+" "+end2));
+//                            System.out.println("ini masalah "+kelas.get(i).getId());
+//                            System.out.println((week2+" "+day2+" "+start2+" "+end2));
                         }
                         if(kelas.get(i).time.size()==1 && kelas.get(i).room.size()==1){
 
