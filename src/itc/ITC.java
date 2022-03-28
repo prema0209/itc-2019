@@ -156,8 +156,8 @@ public class ITC {
 
         catatHasil = new int[510];
 
-        algoritma = "WOA+LAHC";
-        int pp = 1; // running 2
+        algoritma = "Adaptif local search";
+        int pp = 5; // running 2
 //        int qq=10;
 //
 //       String nama[]={"muni-fsps-spr17c"};
@@ -781,7 +781,15 @@ public static int optimize2(double eks) throws CloneNotSupportedException {
 
 
         notImprove = 0;
-        int indexEksplorasi=99;
+        double indexEksplorasi=1.01;
+
+
+        int jumlaheksploitasi=0;
+        int jumlaheksplorasi=0;
+
+        boolean arahEksplorasi=true;
+
+        double maxnotImprove=sortedClass.size()*0.6;
 
 
 
@@ -798,6 +806,10 @@ public static int optimize2(double eks) throws CloneNotSupportedException {
         for (int i = 0; i < I; i++) {
 
 
+            if(i%100000==0){
+                maxnotImprove=maxnotImprove+sortedClass.size()*0.3;
+            }
+
 
             if(i%1000==0){
                 System.out.println("iterasi ke : "+i);
@@ -805,15 +817,37 @@ public static int optimize2(double eks) throws CloneNotSupportedException {
 
             Random rand = new Random();
 
-            if (notImprove > 500) {
+            if (notImprove > maxnotImprove ){
 
                 if(fsbestSementara<=fsBest){
-                    if(indexEksplorasi>99)indexEksplorasi-=1;
+
 
                 }
                 else{
                     fsbestSementara=fsBest;
-                    indexEksplorasi=99;
+                    indexEksplorasi=1.01;
+                    //maxnotImprove=sortedClass.size()*0.6;
+                    arahEksplorasi=true;
+                }
+
+
+                if(indexEksplorasi>=1.5 && arahEksplorasi) {
+                    arahEksplorasi = false;
+                   // maxnotImprove=sortedClass.size()*1.5;
+
+                }
+
+                if(indexEksplorasi<=1.01 && !arahEksplorasi){
+                    arahEksplorasi=true;
+
+
+                }
+
+                if(arahEksplorasi){
+                    indexEksplorasi+=0.03;
+                }
+                else{
+                    indexEksplorasi-=0.03;
                 }
 
                 notImprove=0;
@@ -823,17 +857,11 @@ public static int optimize2(double eks) throws CloneNotSupportedException {
             }
 
 
-            int coba=fsAwal-fsBest;
-            coba=coba*indexEksplorasi/100;
-
-            int coba2=fsAwal-fs;
-
-
             //if(coba2<coba && test){
-            if(fs>fsBest*1.15 && test){
+            if(fs>fsBest*indexEksplorasi && test){
                 test=false;
 
-                System.out.println("masuk eksploitasi"+fsAwal+" "+fs+" "+fsBest+" "+indexEksplorasi+" "+coba+" "+coba2);
+                System.out.println("masuk eksploitasi"+fsAwal+" "+fs+" "+fsBest+" "+indexEksplorasi);
             }
 
             if (i % 50000 == 0) {
@@ -864,7 +892,11 @@ public static int optimize2(double eks) throws CloneNotSupportedException {
 
 
 
-            if (test) {
+            double ran=rand.nextDouble();
+
+            if(!test)ran=1;
+
+            if (ran<0.3) {
 
 
                     // System.out.println("masuk 2");
@@ -879,6 +911,7 @@ public static int optimize2(double eks) throws CloneNotSupportedException {
 
 
                         exploreClass(room, time);
+                        jumlaheksplorasi++;
 
                     } else {
 
@@ -893,7 +926,7 @@ public static int optimize2(double eks) throws CloneNotSupportedException {
             } else {
 
 
-                if(rand.nextDouble()<0.3 && listStudent.length >0){ //exploidStudent
+                if(rand.nextDouble()<0.5 && listStudent.length >0){ //exploidStudent
 
                     int awal = fs;
                     exploidStudent();
@@ -913,6 +946,7 @@ public static int optimize2(double eks) throws CloneNotSupportedException {
                 }
                 else{ //exploidClass
                     int awal = fs;
+                    jumlaheksploitasi++;
                     if (exploidClass(time, room)) {
 
                         if (fs < fsBest) {
@@ -945,6 +979,9 @@ public static int optimize2(double eks) throws CloneNotSupportedException {
         System.out.println("hasil : "+calculatePenalty(0));
         I=I-50000;
         System.out.println("sisa iterasi "+I);
+
+        System.out.println("jumlah eksplorasi :"+jumlaheksplorasi);
+    System.out.println("jumlah eksploitasi :"+jumlaheksploitasi);
 
 
         return (int) I;
@@ -2307,8 +2344,7 @@ public static void Clone (boolean t) throws CloneNotSupportedException {
                             sortedClass.get(k).setRoomDipakai(bestSolusi[k][1]);
                         }
 
-                        jadwal = new ArrayList[slot * nrDays * nrWeeks][listRoom[listRoom.length - 1].getId()];
-                        jadwalIndex = new ArrayList[slot * nrDays * nrWeeks][listRoom[listRoom.length - 1].getId()];
+
 
                         for (int ii = 0; ii < jadwal.length; ii++) {
                             for (int j = 0; j < jadwal[ii].length; j++) {
