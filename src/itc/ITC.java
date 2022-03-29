@@ -167,7 +167,7 @@ public class ITC {
 //        for(int w=0;w<nama.length;w++) {
 
         long startTime = 0;
-        namafile = "lums-spr18";
+        namafile = "iku-fal17";
         //myWriter = new FileWriter("C:/Users/wekan/Documents/tesis/dataset/Solusi Awal/" + namafile + "/"+pp+".xml");
         //myWriter = new FileWriter("C:/Users/wekan/OneDrive/Documents/tesis/dataset/" + namafile + ".xml");
         myWriter = new FileWriter(path + "hasil/" + namafile + "_" + pp + ".xml");
@@ -831,7 +831,7 @@ public static int optimize2(double eks) throws CloneNotSupportedException {
                 }
 
 
-                if(indexEksplorasi>=1.5 && arahEksplorasi) {
+                if(indexEksplorasi>=1.3 && arahEksplorasi) {
                     arahEksplorasi = false;
                    // maxnotImprove=sortedClass.size()*1.5;
 

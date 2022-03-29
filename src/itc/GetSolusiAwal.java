@@ -27,12 +27,14 @@ public class GetSolusiAwal {
 
             Random d=new Random();
             int qq=d.nextInt(10)+1;
-            qq=1;
+//            qq=1;
 
             // File fXmlFile = new File("C:/Users/igust/Downloads/dataset/Sudah berhasil/"+namafile+".xml");
            // File fXmlFile = new File("C:/Users/wekan/Documents/tesis/dataset/Solusi Awal/" + namafile + "/1.xml");
            File fXmlFile = new File(path+"Solusi Awal/" + namafile +"/"+qq+".xml");
             //File fXmlFile = new File(path+"testAwal/" + namafile +".xml");
+
+            //File fXmlFile = new File(path+"Solusi Awal 1/" + namafile +"_"+qq+".xml");
 
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
