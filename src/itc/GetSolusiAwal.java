@@ -27,7 +27,9 @@ public class GetSolusiAwal {
 
             Random d=new Random();
             int qq=d.nextInt(10)+1;
-//            qq=1;
+
+            System.out.println("solusi awal nomor : "+qq);
+//         qq=1;
 
             // File fXmlFile = new File("C:/Users/igust/Downloads/dataset/Sudah berhasil/"+namafile+".xml");
            // File fXmlFile = new File("C:/Users/wekan/Documents/tesis/dataset/Solusi Awal/" + namafile + "/1.xml");

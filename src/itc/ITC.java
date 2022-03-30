@@ -123,6 +123,21 @@ public class ITC {
     static int notImprove;
 
 
+    public static int gagalMove;
+    public static int gagalSwap;
+    public static int gagalLocal;
+    public static int gagalSwapStudent;
+
+    public static int berhasilMove;
+    public static int berhasilSwap;
+    public static int berhasilLocal;
+    public static int berhasilSwapStudent;
+
+    public static int gagalMoveEks;
+    public static int gagalSwapEks;
+    public static int gagalLocalEks;
+    public static int gagalSwapStudentEks;
+
     public static int catatHasil[];
     public static int bestFitness;
 
@@ -141,6 +156,22 @@ public class ITC {
         distributionPenalty = 0;
         timePenalty = 0;
         roomPenalty = 0;
+
+        gagalSwapStudentEks=0;
+        gagalMove=0;
+        gagalSwap=0;
+        gagalSwapStudent=0;
+        gagalLocal=0;
+
+        berhasilMove=0;
+        berhasilSwap=0;
+        berhasilSwapStudent=0;
+        berhasilLocal=0;
+
+        gagalMoveEks=0;
+        gagalSwapEks=0;
+
+        gagalLocalEks=0;
 
         Scanner sc = new Scanner(System.in);
         System.out.println("masukan Perintah :");
@@ -167,7 +198,7 @@ public class ITC {
 //        for(int w=0;w<nama.length;w++) {
 
         long startTime = 0;
-        namafile = "iku-fal17";
+        namafile = "tg-spr18";
         //myWriter = new FileWriter("C:/Users/wekan/Documents/tesis/dataset/Solusi Awal/" + namafile + "/"+pp+".xml");
         //myWriter = new FileWriter("C:/Users/wekan/OneDrive/Documents/tesis/dataset/" + namafile + ".xml");
         myWriter = new FileWriter(path + "hasil/" + namafile + "_" + pp + ".xml");
@@ -297,6 +328,18 @@ public class ITC {
             System.out.println("hasil akhir :"+calculatePenalty(0));
             System.out.println(namafile);
 
+            System.out.println("gagal Move :"+gagalMove);
+            System.out.println("gagal MoveEks :"+gagalMoveEks);
+            System.out.println("gagal Swap :"+gagalSwap);
+            System.out.println("gagal SwapEks :"+gagalSwapEks);
+            System.out.println("gagal Local :"+gagalLocal);
+            System.out.println("gagal LocalEks :"+gagalLocalEks);
+            System.out.println("gagal SwapStudent :"+gagalSwapStudent);
+            System.out.println("gagal SwapStudentEks :"+gagalSwapStudentEks);
+            System.out.println("berhasil Move :"+berhasilMove);
+            System.out.println("berhasil Swap :"+berhasilSwap);
+            System.out.println("berhasil Local :"+berhasilLocal);
+            System.out.println("berhasil SwapStudent :"+berhasilSwapStudent);
 
 //            System.out.println("pindah ke LAHC");
 //            LAHC(0);
@@ -786,10 +829,11 @@ public static int optimize2(double eks) throws CloneNotSupportedException {
 
         int jumlaheksploitasi=0;
         int jumlaheksplorasi=0;
+        double rateeksplorasi=1.5;
 
         boolean arahEksplorasi=true;
 
-        double maxnotImprove=sortedClass.size()*0.6;
+        double maxnotImprove=sortedClass.size();
 
 
 
@@ -807,7 +851,9 @@ public static int optimize2(double eks) throws CloneNotSupportedException {
 
 
             if(i%100000==0){
-                maxnotImprove=maxnotImprove+sortedClass.size()*0.3;
+                maxnotImprove=maxnotImprove+sortedClass.size();
+                rateeksplorasi=rateeksplorasi*0.93;
+
             }
 
 
@@ -831,7 +877,7 @@ public static int optimize2(double eks) throws CloneNotSupportedException {
                 }
 
 
-                if(indexEksplorasi>=1.3 && arahEksplorasi) {
+                if(indexEksplorasi>=rateeksplorasi && arahEksplorasi) {
                     arahEksplorasi = false;
                    // maxnotImprove=sortedClass.size()*1.5;
 
@@ -844,10 +890,10 @@ public static int optimize2(double eks) throws CloneNotSupportedException {
                 }
 
                 if(arahEksplorasi){
-                    indexEksplorasi+=0.03;
+                    indexEksplorasi+=0.01;
                 }
                 else{
-                    indexEksplorasi-=0.03;
+                    indexEksplorasi-=0.01;
                 }
 
                 notImprove=0;
@@ -858,32 +904,55 @@ public static int optimize2(double eks) throws CloneNotSupportedException {
 
 
             //if(coba2<coba && test){
-            if(fs>fsBest*indexEksplorasi && test){
-                test=false;
 
-                System.out.println("masuk eksploitasi"+fsAwal+" "+fs+" "+fsBest+" "+indexEksplorasi);
+
+            if(fs>fsBest*indexEksplorasi && test){
+
+                if(fsBest+100<fs){
+                    test=false;
+
+                    System.out.println("masuk eksploitasi"+fsAwal+" "+fs+" "+fsBest+" "+indexEksplorasi);
+                }
+
             }
 
-            if (i % 50000 == 0) {
+            if (i % 20000 == 0) {
                 System.gc();
             }
 
 
+            if(!test) {
+
+                int xx=rand.nextInt(indexKelas.size());
+
+                ubahSolusi = indexKelas.get(xx);
+                indexKelas.remove(xx);
 
 
-            int xx=rand.nextInt(indexKelas.size());
+                if(indexKelas.size()==0){
+                    indexKelas=new ArrayList<>();
 
-            ubahSolusi = rand.nextInt(sortedClass.size());
-            //indexKelas.remove(xx);
-
-
-            if(indexKelas.size()==0){
-                indexKelas=new ArrayList<>();
-
-                for(int kj=0;kj<sortedClass.size();kj++){
-                    indexKelas.add(kj);
+                    for(int kj=0;kj<sortedClass.size();kj++){
+                        indexKelas.add(kj);
+                    }
                 }
             }
+            else {
+                ubahSolusi=rand.nextInt(sortedClass.size());
+
+
+
+                    indexKelas=new ArrayList<>();
+
+                    for(int kj=0;kj<sortedClass.size();kj++){
+                        indexKelas.add(kj);
+                    }
+
+
+            }
+
+
+
 
 
             int time = sortedClass.get(ubahSolusi).getTimeDipakai();
@@ -895,6 +964,7 @@ public static int optimize2(double eks) throws CloneNotSupportedException {
             double ran=rand.nextDouble();
 
             if(!test)ran=1;
+            else ran=0;
 
             if (ran<0.3) {
 
@@ -957,7 +1027,7 @@ public static int optimize2(double eks) throws CloneNotSupportedException {
                         }
 
 
-                            if (awal >= fs) {
+                            if (awal > fs) {
                                 notImprove = 0;
                             } else {
                                 notImprove++;
@@ -1255,6 +1325,10 @@ public static void Clone (boolean t) throws CloneNotSupportedException {
 
 
                 if (fs >= fsBaru) {
+                    if(fs>fsBaru){
+                        berhasilSwapStudent++;
+                    }
+
                     solusiDipakai(1);
                     //System.out.println(fsBaru);
                     fs = fsBaru;
@@ -1269,9 +1343,12 @@ public static void Clone (boolean t) throws CloneNotSupportedException {
 
                     courseBanyakKelas.get(ubahStudent).rollback();
 //
-
+                    gagalSwapStudentEks++;
                 }
 
+            }
+            else{
+                gagalSwapStudent++;
             }
 
 
@@ -1922,7 +1999,17 @@ public static void Clone (boolean t) throws CloneNotSupportedException {
                 fsBaru = calculatePenalty(2);
             }
 
-            if (fs > fsBaru) {
+            if (fs >= fsBaru) {
+
+                if (x == 0) {
+                    berhasilMove++;
+                } else if (x == 1) {
+                    berhasilLocal++;
+                } else if (x == 2) {
+
+                    berhasilSwap++;
+
+                }
 
 
                 if (x == 2) {
@@ -1986,6 +2073,16 @@ public static void Clone (boolean t) throws CloneNotSupportedException {
 
                 //   System.out.println("id "+sortedClass.get(ubahSolusi).getId());
 
+                if (x == 0) {
+                    gagalMoveEks++;
+                } else if (x == 1) {
+                    gagalLocalEks++;
+                } else if (x == 2) {
+
+                    gagalSwapEks++;
+
+                }
+
                 if (x == 2) {
 
                     sortedClass.get(ubahSolusi).setTimeDipakai(time);
@@ -2002,6 +2099,17 @@ public static void Clone (boolean t) throws CloneNotSupportedException {
 
 //
                 return false;
+            }
+        }
+        else{
+            if (x == 0) {
+                gagalMove++;
+            } else if (x == 1) {
+                gagalLocal++;
+            } else if (x == 2) {
+
+                gagalSwap++;
+
             }
         }
         return false;
