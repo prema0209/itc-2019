@@ -188,7 +188,7 @@ public class ITC {
         catatHasil = new int[510];
 
         algoritma = "Adaptif local search";
-        int pp = 5; // running 2
+        int pp =5; // running 2
 //        int qq=10;
 //
 //       String nama[]={"muni-fsps-spr17c"};
@@ -198,7 +198,7 @@ public class ITC {
 //        for(int w=0;w<nama.length;w++) {
 
         long startTime = 0;
-        namafile = "tg-spr18";
+        namafile = "yach-fal17";
         //myWriter = new FileWriter("C:/Users/wekan/Documents/tesis/dataset/Solusi Awal/" + namafile + "/"+pp+".xml");
         //myWriter = new FileWriter("C:/Users/wekan/OneDrive/Documents/tesis/dataset/" + namafile + ".xml");
         myWriter = new FileWriter(path + "hasil/" + namafile + "_" + pp + ".xml");
@@ -824,7 +824,7 @@ public static int optimize2(double eks) throws CloneNotSupportedException {
 
 
         notImprove = 0;
-        double indexEksplorasi=1.01;
+        double indexEksplorasi=1.001;
 
 
         int jumlaheksploitasi=0;
@@ -850,7 +850,7 @@ public static int optimize2(double eks) throws CloneNotSupportedException {
         for (int i = 0; i < I; i++) {
 
 
-            if(i%100000==0){
+            if(i%100000==0 && i!=0){
                 maxnotImprove=maxnotImprove+sortedClass.size();
                 rateeksplorasi=rateeksplorasi*0.93;
 
@@ -871,7 +871,7 @@ public static int optimize2(double eks) throws CloneNotSupportedException {
                 }
                 else{
                     fsbestSementara=fsBest;
-                    indexEksplorasi=1.01;
+                    indexEksplorasi=1.001;
                     //maxnotImprove=sortedClass.size()*0.6;
                     arahEksplorasi=true;
                 }
@@ -883,22 +883,22 @@ public static int optimize2(double eks) throws CloneNotSupportedException {
 
                 }
 
-                if(indexEksplorasi<=1.01 && !arahEksplorasi){
+                if(indexEksplorasi<=1.001 && !arahEksplorasi){
                     arahEksplorasi=true;
 
 
                 }
 
                 if(arahEksplorasi){
-                    indexEksplorasi+=0.01;
+                    indexEksplorasi+=0.002;
                 }
                 else{
-                    indexEksplorasi-=0.01;
+                    indexEksplorasi-=0.002;
                 }
-
+                System.out.println("masuk eksplorasi "+fs+" limit :"+notImprove);
                 notImprove=0;
                 test=true;
-                System.out.println("masuk eksplorasi "+fs);
+
 
             }
 
@@ -908,11 +908,11 @@ public static int optimize2(double eks) throws CloneNotSupportedException {
 
             if(fs>fsBest*indexEksplorasi && test){
 
-                if(fsBest+100<fs){
+               // if(fsBest+100<fs){
                     test=false;
 
                     System.out.println("masuk eksploitasi"+fsAwal+" "+fs+" "+fsBest+" "+indexEksplorasi);
-                }
+              //  }
 
             }
 
