@@ -179,7 +179,7 @@ public class ITC {
 
         I = 500000;
         // I=I/2;
-        f = new int[25];
+        f = new int[500];
 
         timePembanding = 1800;
 
@@ -189,16 +189,10 @@ public class ITC {
 
         algoritma = "Adaptif local search";
         int pp =5; // running 2
-//        int qq=10;
-//
-//       String nama[]={"muni-fsps-spr17c"};
-//       // String nama[]={"muni-fsps-spr17c"};
-//        int hasil[]=new int[nama.length*2];
 
-//        for(int w=0;w<nama.length;w++) {
 
         long startTime = 0;
-        namafile = "yach-fal17";
+        namafile = "bet-fal17";
         //myWriter = new FileWriter("C:/Users/wekan/Documents/tesis/dataset/Solusi Awal/" + namafile + "/"+pp+".xml");
         //myWriter = new FileWriter("C:/Users/wekan/OneDrive/Documents/tesis/dataset/" + namafile + ".xml");
         myWriter = new FileWriter(path + "hasil/" + namafile + "_" + pp + ".xml");
@@ -261,7 +255,6 @@ public class ITC {
             }
 
 
-           double eks=0.5;
             bestFitness=calculatePenalty(0);
             bestSolusi = new ArrayList<>();
 
@@ -273,57 +266,23 @@ public class ITC {
 
 
 
-            //int x = optimize(eks);
-
             fsBestGlobal=calculatePenalty(0);
-//            while(I>0){
-//                int x = optimize2(eks);
-//            }
 
-            optimize2(eks);
+          //optimize3(startTime);
 
-            //LAHC((int)I);
-
-            for(int kk=0;kk<10;kk++){
-
-//                int x = optimize(eks);
-//                eks=eks*0.9;
-
-//                if(bestFitness>calculatePenalty(0)){
-//                    for (int i = 0; i < bestSolusi.size(); i++) {
-//
-//                        bestSolusi.remove(0);
-//
-//                    }
-//                    for (int i = 0; i < sortedClass.size(); i++) {
-//
-//                        bestSolusi.add((Class) sortedClass.get(i).clone());
-//
-//                    }
-//                }
+           LAHC();
 
 
-            }
-
-//            for (int i = 0; i < sortedClass.size(); i++) {
-//
-//                sortedClass.remove(0);
+//            for (int i = 0; i < bestSolusi.size(); i++) {
+//                bestSolusi.get(i).rollbackStudentTerbaik();
+//                sortedClass.set(i, (Class) bestSolusi.get(i).clone());
 //
 //            }
-            for (int i = 0; i < bestSolusi.size(); i++) {
-                bestSolusi.get(i).rollbackStudentTerbaik();
-                sortedClass.set(i, (Class) bestSolusi.get(i).clone());
-
-            }
-            for(int i=0;i<listStudent.length;i++){
-                listStudent[i].rollbackKelasTerbaik();
-            }
-
-//            for(int i=0;i<sortedClass.size();i++){
-//                sortedClass.get(i).rollbackStudentTerbaik();
+//            for(int i=0;i<listStudent.length;i++){
+//                listStudent[i].rollbackKelasTerbaik();
 //            }
 
-            //System.gc();
+
             System.out.println("fsglobal :"+fsBestGlobal);
             System.out.println("hasil akhir :"+calculatePenalty(0));
             System.out.println(namafile);
@@ -341,10 +300,6 @@ public class ITC {
             System.out.println("berhasil Local :"+berhasilLocal);
             System.out.println("berhasil SwapStudent :"+berhasilSwapStudent);
 
-//            System.out.println("pindah ke LAHC");
-//            LAHC(0);
-
-            //GreatDeluge();
 
 
         }
@@ -356,72 +311,9 @@ public class ITC {
             totalTime += waktuSA;
         }
 
-
-        //print hasil
-        for (int i = 0; i < sortedClass.size(); i++) {
-            int id = sortedClass.get(i).getId();
-            int room = sortedClass.get(i).getRoomDipakai();
-            int room2;
-            if (room < 0) {
-                room2 = -1;
-            } else {
-                room2 = sortedClass.get(i).getRoom(room).getId();
-            }
-
-            int time = sortedClass.get(i).getTimeDipakai();
-            String day;
-            int start;
-            String week;
-            if (time < 0) {
-                day = "nan";
-                start = -1;
-                week = "nan";
-
-            } else {
-                day = sortedClass.get(i).getTime(time).getDays();
-                start = sortedClass.get(i).getTime(time).getStart();
-                week = sortedClass.get(i).getTime(time).getWeeks();
-
-            }
-
-//            System.out.println("<class id=\"" + id + "\" days=\"" + day + "\" start=\"" + start + "\" weeks=\"" + week + "\" room=\"" + room2 + "\">");
-//            //   sortedClass.get(i).printStudent();
-//            System.out.println("\n</class>");
-
-        }
-
         printHasil();
-//
-//            if(pp==qq){
-//                hasil[w+nama.length]=calculatePenalty(0);
-//
-//            }
-//            else{
-//                hasil[w]=calculatePenalty(0);
-//
-//            }
-//
-//            System.out.print(namafile + "_" + pp);
 
         System.out.println("waktu :" + totalTime);
-
-//
-//            if(w==nama.length-1 && pp!=qq){
-//                pp=qq;
-//                w=-1;
-//            }
-//
-//        }
-
-//        for(int i=0;i<hasil.length;i++){
-//            if(i>=nama.length){
-//                System.out.println(nama[i-nama.length]+" :"+hasil[i]);
-//            }
-//            else{
-//                System.out.println(nama[i]+" :"+hasil[i]);
-//            }
-//
-//        }
 
     }
 
@@ -816,7 +708,7 @@ public static int optimize(double eks) throws CloneNotSupportedException {
     return (int) I;
 }
 
-public static int optimize2(double eks) throws CloneNotSupportedException {
+public static int optimize2(long startTime) throws CloneNotSupportedException {
         System.out.println("mulai optimasi");
 
         fs = calculatePenalty(0);
@@ -855,6 +747,7 @@ public static int optimize2(double eks) throws CloneNotSupportedException {
                 rateeksplorasi=rateeksplorasi*0.93;
 
             }
+
 
 
             if(i%1000==0){
@@ -1058,7 +951,400 @@ public static int optimize2(double eks) throws CloneNotSupportedException {
     }
 
 
-public static void Clone (boolean t) throws CloneNotSupportedException {
+    public static int optimize3(long startTime) throws CloneNotSupportedException {
+        System.out.println("mulai optimasi");
+
+        fs = calculatePenalty(0);
+        fsBest = fs;
+
+
+        notImprove = 0;
+        double indexEksplorasi=1.001;
+
+
+        int jumlaheksploitasi=0;
+        int jumlaheksplorasi=0;
+        double rateeksplorasi=1.5;
+
+        boolean arahEksplorasi=true;
+
+        double maxnotImprove=sortedClass.size();
+
+
+
+        int fsAwal=fs;
+        List<Integer> indexKelas=new ArrayList<>();
+
+        for(int i=0;i<sortedClass.size();i++){
+            indexKelas.add(i);
+        }
+
+        int fsbestSementara=fsBest;
+        boolean test=false;
+
+        for (int i = 0; i < I; i++) {
+
+
+            if(i%100000==0 && i!=0){
+                maxnotImprove=maxnotImprove+sortedClass.size();
+                rateeksplorasi=rateeksplorasi*0.93;
+
+            }
+
+
+
+            if(i%1000==0){
+                System.out.println("iterasi ke : "+i);
+            }
+
+            Random rand = new Random();
+
+            if (notImprove > maxnotImprove ){
+
+                if(fsbestSementara<=fsBest){
+
+
+                }
+                else{
+                    fsbestSementara=fsBest;
+                    indexEksplorasi=1.001;
+                    //maxnotImprove=sortedClass.size()*0.6;
+                    arahEksplorasi=true;
+                }
+
+
+                if(indexEksplorasi>=rateeksplorasi && arahEksplorasi) {
+                    arahEksplorasi = false;
+                    // maxnotImprove=sortedClass.size()*1.5;
+
+                }
+
+                if(indexEksplorasi<=1.001 && !arahEksplorasi){
+                    arahEksplorasi=true;
+
+
+                }
+
+                if(arahEksplorasi){
+                    indexEksplorasi+=0.002;
+                }
+                else{
+                    indexEksplorasi-=0.002;
+                }
+                System.out.println("masuk eksplorasi "+fs+" limit :"+notImprove);
+                notImprove=0;
+                test=true;
+
+
+            }
+
+
+            //if(coba2<coba && test){
+
+
+            if(fs>fsBest*indexEksplorasi && test){
+
+                // if(fsBest+100<fs){
+                test=false;
+
+                System.out.println("masuk eksploitasi"+fsAwal+" "+fs+" "+fsBest+" "+indexEksplorasi);
+                //  }
+
+            }
+
+            if (i % 20000 == 0) {
+                System.gc();
+            }
+
+
+//            if(!test) {
+//
+//                int xx=rand.nextInt(indexKelas.size());
+//
+//                ubahSolusi = indexKelas.get(xx);
+//                indexKelas.remove(xx);
+//
+//
+//                if(indexKelas.size()==0){
+//                    indexKelas=new ArrayList<>();
+//
+//                    for(int kj=0;kj<sortedClass.size();kj++){
+//                        indexKelas.add(kj);
+//                    }
+//                }
+//            }
+//            else {
+//                ubahSolusi=rand.nextInt(sortedClass.size());
+//
+//
+//
+//                indexKelas=new ArrayList<>();
+//
+//                for(int kj=0;kj<sortedClass.size();kj++){
+//                    indexKelas.add(kj);
+//                }
+//
+//
+//            }
+            //Random rand = new Random();
+            ubahSolusi = rand.nextInt(sortedClass.size());
+
+
+
+            int x;
+
+
+
+
+            if (sortedClass.get(ubahSolusi).waktuSama.size() == 0) {
+                x= rand.nextInt(3);
+            } else {
+                x=  rand.nextInt(4);
+            }
+
+
+            if (x == 2) {
+
+                if (listStudent.length > 0) {
+                    ubahStudent = rand.nextInt(courseBanyakKelas.size());
+                } else {
+                    x = 0;
+                }
+            }
+
+            boolean t = false;
+
+            if (x == 1 && sortedClass.get(ubahSolusi).time.size() > 500) {
+
+                x = 0;
+            }
+
+
+
+            int time = sortedClass.get(ubahSolusi).getTimeDipakai();
+            int room = sortedClass.get(ubahSolusi).getRoomDipakai();
+
+
+
+
+            if (x == 0) {
+                t = sortedClass.get(ubahSolusi).mutate();
+            } else if (x == 1) {
+                t = sortedClass.get(ubahSolusi).localSearch();
+            } else if (x == 2) {
+
+
+                t = courseBanyakKelas.get(ubahStudent).getSwapStudent();
+
+            } else if (x == 3) {
+
+                t = sortedClass.get(ubahSolusi).swap();
+
+            }
+
+
+            if (t) {
+
+
+                int CsBaru = 0;
+
+                if (x == 2) {
+                    CsBaru = calculatePenalty(1);
+
+                } else if (x == 3) {
+
+                    CsBaru = calculatePenalty(3);
+                } else {
+                    CsBaru = calculatePenalty(2);
+                }
+
+
+                if(test){
+                    fs=CsBaru;
+                    if (x == 2) {
+                        solusiDipakai(1);
+                    } else if (x == 3) {
+
+                        solusiDipakai(2);
+//                        hapus(ubahSolusi, false);
+//                        hapus(ubahSolusi2, false);
+
+                        sortedClass.get(ubahSolusi).hapusJadwal(time, room);
+                        sortedClass.get(ubahSolusi2).hapusJadwal(Times2, Rooms2);
+
+                        if (!sortedClass.get(ubahSolusi).roomKosong) {
+
+                            int r1 = sortedClass.get(ubahSolusi).getRoom(sortedClass.get(ubahSolusi).getRoomDipakai()).getId();
+
+                            int time2 = sortedClass.get(ubahSolusi).getTimeDipakai();
+                            String week = sortedClass.get(ubahSolusi).time.get(time2).getWeeks();
+                            String day = sortedClass.get(ubahSolusi).time.get(time2).getDays();
+                            int start = sortedClass.get(ubahSolusi).time.get(time2).getStart();
+                            int length = sortedClass.get(ubahSolusi).time.get(time2).getLength();
+
+
+                            sortedClass.get(ubahSolusi).isi(week, day, start, length, r1, 0, true);
+                        }
+                        if (!sortedClass.get(ubahSolusi2).roomKosong) {
+
+                            int r1 = sortedClass.get(ubahSolusi2).getRoom(sortedClass.get(ubahSolusi2).getRoomDipakai()).getId();
+
+                            int time2 = sortedClass.get(ubahSolusi2).getTimeDipakai();
+                            String week = sortedClass.get(ubahSolusi2).time.get(time2).getWeeks();
+                            String day = sortedClass.get(ubahSolusi2).time.get(time2).getDays();
+                            int start = sortedClass.get(ubahSolusi2).time.get(time2).getStart();
+                            int length = sortedClass.get(ubahSolusi2).time.get(time2).getLength();
+
+
+                            sortedClass.get(ubahSolusi2).isi(week, day, start, length, r1, 0, true);
+                        }
+                    } else {
+                        solusiDipakai(0);
+
+                        if (room > -1) {
+                            //hapus(ubahSolusi, false);
+
+                            sortedClass.get(ubahSolusi).hapusJadwal(time, room);
+                            int r1 = sortedClass.get(ubahSolusi).getRoom(sortedClass.get(ubahSolusi).getRoomDipakai()).getId();
+
+                            int time2 = sortedClass.get(ubahSolusi).getTimeDipakai();
+                            String week = sortedClass.get(ubahSolusi).time.get(time2).getWeeks();
+                            String day = sortedClass.get(ubahSolusi).time.get(time2).getDays();
+                            int start = sortedClass.get(ubahSolusi).time.get(time2).getStart();
+                            int length = sortedClass.get(ubahSolusi).time.get(time2).getLength();
+
+                            sortedClass.get(ubahSolusi).isi(week, day, start, length, r1, 0, true);
+                        }
+                    }
+                }
+                else{
+                    if (CsBaru >= fs) {
+                        notImprove++;
+                    } else {
+                        notImprove = 0;
+                    }
+
+
+
+                    if (CsBaru <=fs) {
+                        //        System.out.println("peningkatan2 :" + CsBaru);
+
+                        if (x == 2) {
+                            solusiDipakai(1);
+                        } else if (x == 3) {
+
+                            solusiDipakai(2);
+
+
+                            sortedClass.get(ubahSolusi).hapusJadwal(time, room);
+                            sortedClass.get(ubahSolusi2).hapusJadwal(Times2, Rooms2);
+
+                            if (!sortedClass.get(ubahSolusi).roomKosong) {
+
+                                int r1 = sortedClass.get(ubahSolusi).getRoom(sortedClass.get(ubahSolusi).getRoomDipakai()).getId();
+
+                                int time2 = sortedClass.get(ubahSolusi).getTimeDipakai();
+                                String week = sortedClass.get(ubahSolusi).time.get(time2).getWeeks();
+                                String day = sortedClass.get(ubahSolusi).time.get(time2).getDays();
+                                int start = sortedClass.get(ubahSolusi).time.get(time2).getStart();
+                                int length = sortedClass.get(ubahSolusi).time.get(time2).getLength();
+
+
+                                sortedClass.get(ubahSolusi).isi(week, day, start, length, r1, 0, true);
+                            }
+                            if (!sortedClass.get(ubahSolusi2).roomKosong) {
+
+                                int r1 = sortedClass.get(ubahSolusi2).getRoom(sortedClass.get(ubahSolusi2).getRoomDipakai()).getId();
+
+                                int time2 = sortedClass.get(ubahSolusi2).getTimeDipakai();
+                                String week = sortedClass.get(ubahSolusi2).time.get(time2).getWeeks();
+                                String day = sortedClass.get(ubahSolusi2).time.get(time2).getDays();
+                                int start = sortedClass.get(ubahSolusi2).time.get(time2).getStart();
+                                int length = sortedClass.get(ubahSolusi2).time.get(time2).getLength();
+
+
+                                sortedClass.get(ubahSolusi2).isi(week, day, start, length, r1, 0, true);
+                            }
+                        } else {
+                            solusiDipakai(0);
+
+                            if (room > -1) {
+                                //hapus(ubahSolusi, false);
+
+                                sortedClass.get(ubahSolusi).hapusJadwal(time, room);
+                                int r1 = sortedClass.get(ubahSolusi).getRoom(sortedClass.get(ubahSolusi).getRoomDipakai()).getId();
+
+                                int time2 = sortedClass.get(ubahSolusi).getTimeDipakai();
+                                String week = sortedClass.get(ubahSolusi).time.get(time2).getWeeks();
+                                String day = sortedClass.get(ubahSolusi).time.get(time2).getDays();
+                                int start = sortedClass.get(ubahSolusi).time.get(time2).getStart();
+                                int length = sortedClass.get(ubahSolusi).time.get(time2).getLength();
+
+                                sortedClass.get(ubahSolusi).isi(week, day, start, length, r1, 0, true);
+                            }
+                        }
+
+                        fs = CsBaru;
+
+                        if (fs < fsBest) {
+
+                            fsBest = fs;
+                            Clone(true);
+
+                        }
+
+
+                    }
+                    else {
+
+                        if (x == 2) {
+                            courseBanyakKelas.get(ubahStudent).rollback();
+                        } else if (x == 3) {
+
+
+                            sortedClass.get(ubahSolusi).setTimeDipakai(time);
+                            sortedClass.get(ubahSolusi).setRoomDipakai(room);
+
+                            sortedClass.get(ubahSolusi2).setTimeDipakai(Times2);
+                            sortedClass.get(ubahSolusi2).setRoomDipakai(Rooms2);
+
+
+                        } else {
+                            sortedClass.get(ubahSolusi).setTimeDipakai(time);
+                            sortedClass.get(ubahSolusi).setRoomDipakai(room);
+                        }
+
+
+                    }
+
+                }
+
+
+
+
+            }
+            else{
+                if(!test)
+                notImprove++;
+            }
+
+
+
+        }
+
+        System.out.println("hasil : "+calculatePenalty(0));
+        I=I-50000;
+        System.out.println("sisa iterasi "+I);
+
+        System.out.println("jumlah eksplorasi :"+jumlaheksplorasi);
+        System.out.println("jumlah eksploitasi :"+jumlaheksploitasi);
+
+
+        return (int) I;
+    }
+
+
+    public static void Clone (boolean t) throws CloneNotSupportedException {
         if(t){
             if(fsBestGlobal>fsBest) {
                 fsBestGlobal=fsBest;
@@ -1077,7 +1363,7 @@ public static void Clone (boolean t) throws CloneNotSupportedException {
             }
         }
 }
-    public static void LAHC(int sisaIterasi) {
+    public static void LAHC() {
 
 
         int Cs = calculatePenalty(0);
@@ -1093,7 +1379,7 @@ public static void Clone (boolean t) throws CloneNotSupportedException {
 
         int Idle = 0;
 
-        int i = sisaIterasi;
+        int i = 0;
 
 
         int aaa = 0;
@@ -1109,36 +1395,25 @@ public static void Clone (boolean t) throws CloneNotSupportedException {
 
 
             if (i % 1000 == 0) {
-                System.out.println("iterasi " + i + " not improve " + notImprove);
-                catatHasil[aaa] = Cs;
-                aaa++;
-            }
+                System.out.println("iterasi " + i + " not improve " + Cs);
 
-            long e = System.nanoTime();
-            double tT = (e - ss) / 1000000000;
-
-            if (tT > timePembanding) {
-                System.out.println("waktu " + tT);
-                break;
             }
 
 
-//            if (i % 1000 == 0)
-//                System.out.println("iterasi " + i);
 
             ubahSolusi = r.nextInt(sortedClass.size());
 
 
             Random rand = new Random();
-            int x = 0;
+            int x;
 
-            x = rand.nextInt(2);
+
 
 
             if (sortedClass.get(ubahSolusi).waktuSama.size() == 0) {
-                rand.nextInt(3);
+                x= rand.nextInt(3);
             } else {
-                rand.nextInt(4);
+                x=  rand.nextInt(4);
             }
 
 
@@ -1178,6 +1453,7 @@ public static void Clone (boolean t) throws CloneNotSupportedException {
 
 
             if (t) {
+
                 masuk++;
                 int CsBaru = 0;
 
@@ -1190,11 +1466,6 @@ public static void Clone (boolean t) throws CloneNotSupportedException {
                 } else {
                     CsBaru = calculatePenalty(2);
                 }
-//                System.out.println(0);
-//                if(CsBaru!=calculatePenalty(0)){
-//
-//                    System.exit(0);
-//                }
 
 
                 if (CsBaru >= Cs) {
@@ -1206,7 +1477,7 @@ public static void Clone (boolean t) throws CloneNotSupportedException {
                 int v = i % f.length;
 
                 if (CsBaru < f[v] || CsBaru <= Cs) {
-//                    System.out.println("peningkatan2 :" + CsBaru);
+        //        System.out.println("peningkatan2 :" + CsBaru);
 
                     if (x == 2) {
                         solusiDipakai(1);
@@ -1291,6 +1562,12 @@ public static void Clone (boolean t) throws CloneNotSupportedException {
 
 
 
+
+
+            }
+            int v = i % f.length;
+            if(Cs<f[v]){
+                f[v]=Cs;
             }
 
             i++;
@@ -1298,14 +1575,14 @@ public static void Clone (boolean t) throws CloneNotSupportedException {
 
         System.out.println("print catat hasil");
 
-        for (int ii = 0; ii < catatHasil.length; ii++) {
+//        for (int ii = 0; ii < catatHasil.length; ii++) {
+//
+//            System.out.println(catatHasil[ii]);
+//        }
+//
 
-            System.out.println(catatHasil[ii]);
-        }
-
-
-        System.out.println("selesai catat hasil");
-        System.out.println("masuk " + masuk);
+//        System.out.println("selesai catat hasil");
+//        System.out.println("masuk " + masuk);
         System.out.println("solusi akhir " + calculatePenalty(0));
 
     }
